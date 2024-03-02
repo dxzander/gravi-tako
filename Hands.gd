@@ -2,14 +2,14 @@ extends CharacterBody3D
 
 const SPEED = 1.0
 
-var hoverStrengthX = 0.5
-var hoverStrengthY = 0.5
+var hoverStrengthX = 1.0
+var hoverStrengthY = 1.0
 var lemniscateTimeCounter = 0.0
 var lemniscateTimeCounterRate = 0.04
 var hoverVector = Vector2()
 var direction = Vector3()
 
-var rotation_speed = 0.1
+var rotation_speed = 0.05
 var curTar = position
 var realTar = Vector3(0, 0, 0)
 var lerpedTar = Vector3(0, 0, 0)
@@ -22,9 +22,9 @@ func _physics_process(delta):
 	realTar = $"../../../Reticle/Reticle3D".global_transform.origin
 	
 	# lemniscate hover animation
-	#lemniscateTimeCounter = lemniscateTimeCounter + lemniscateTimeCounterRate
-	#hoverVector = Vector2((cos(lemniscateTimeCounter)*hoverStrengthX),(sin(2*lemniscateTimeCounter)/2)*hoverStrengthY)
-	#direction = Vector3(hoverVector.x, hoverVector.y, 0.0)
+	lemniscateTimeCounter = lemniscateTimeCounter + lemniscateTimeCounterRate
+	hoverVector = Vector2((cos(lemniscateTimeCounter)*hoverStrengthX),(sin(2*lemniscateTimeCounter)/2)*hoverStrengthY)
+	direction = Vector3(hoverVector.x, hoverVector.y, 0.0)
 	
 	# shoot towards target
 	if Input.is_action_pressed("ui_accept") and name == 'HandR':

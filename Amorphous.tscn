@@ -1,10 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://cu62uo8d3bfe0"]
+[gd_scene load_steps=29 format=3 uid="uid://cu62uo8d3bfe0"]
 
 [ext_resource type="Script" path="res://Hands.gd" id="1_uti64"]
 [ext_resource type="Script" path="res://Amorphous.gd" id="1_y7hgi"]
+[ext_resource type="Shader" path="res://cell_shader.gdshader" id="2_fkub8"]
+[ext_resource type="Shader" path="res://outline2.gdshader" id="2_ijsdj"]
 [ext_resource type="Script" path="res://Camera.gd" id="3_26r2a"]
 [ext_resource type="Script" path="res://Reticle.gd" id="3_o0l0v"]
 [ext_resource type="Script" path="res://SkellyIK.gd" id="3_q0drx"]
+[ext_resource type="Script" path="res://Skelly.gd" id="3_qqxea"]
 [ext_resource type="Texture2D" uid="uid://dkl7llp6l116f" path="res://icon.svg" id="4_8pfog"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vmxle"]
@@ -15,10 +18,15 @@ ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 sky_material = SubResource("ProceduralSkyMaterial_vmxle")
 
 [sub_resource type="Environment" id="Environment_04ihv"]
-background_mode = 2
+background_mode = 1
 sky = SubResource("Sky_sfibf")
+ambient_light_source = 2
+ambient_light_color = Color(0.498039, 0.498039, 0.498039, 1)
+reflected_light_source = 1
 tonemap_mode = 2
 glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.568627, 0.517647, 0.611765, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_s2yhx"]
 radius = 1.0
@@ -54,6 +62,24 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_e1iim")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vwoej"]
+render_priority = 0
+shader = ExtResource("2_ijsdj")
+shader_parameter/shadow_color = Color(0.431373, 0.0941176, 0.615686, 1)
+shader_parameter/shadow_thickness = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8y7u4"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_vwoej")
+shader = ExtResource("2_fkub8")
+shader_parameter/main_color = Color(0.858824, 0.858824, 0.858824, 1)
+shader_parameter/roughness = 0.0
+shader_parameter/shade_threshold = 0.0
+shader_parameter/shade_softness = 0.0
+shader_parameter/shade_darkness = 1.0
+shader_parameter/edge_strength = 0.5
+shader_parameter/edge_color = Color(0.431373, 0.0941176, 0.615686, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41utq"]
 
@@ -249,6 +275,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="Body" type="MeshInstance3D" parent="Chara"]
 mesh = SubResource("ArrayMesh_58p5c")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_8y7u4")
 
 [node name="ArmR" type="Node3D" parent="Chara"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.998308, 0, 0)
@@ -259,15 +286,16 @@ motion_mode = 1
 script = ExtResource("1_uti64")
 
 [node name="WristR" type="Node3D" parent="Chara/ArmR/HandR"]
-transform = Transform3D(1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0, 1, 0, 0, -10)
+transform = Transform3D(1, 2.66801e-14, 0, -2.80293e-14, 1, 0, 0, 0, 1, 0, 0, -10)
 
 [node name="HandRModel" type="MeshInstance3D" parent="Chara/ArmR/HandR/WristR"]
 transform = Transform3D(1, -6.35275e-22, 5.68434e-14, -5.68434e-14, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.07, -1)
 mesh = SubResource("ArrayMesh_4kdcd")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_8y7u4")
 
 [node name="HandRCollider" type="CollisionShape3D" parent="Chara/ArmR/HandR"]
-transform = Transform3D(1, -1.90582e-21, 9.23706e-14, -9.23706e-14, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.07, -10.5)
+transform = Transform3D(1, -2.13622e-21, 9.8651e-14, -9.90835e-14, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.0699997, -10.5)
 shape = SubResource("CapsuleShape3D_qej6c")
 
 [node name="SkellyR" type="Skeleton3D" parent="Chara/ArmR"]
@@ -376,15 +404,19 @@ bones/14/enabled = true
 bones/14/position = Vector3(-5.82105e-10, 1.00152, 2.68674e-14)
 bones/14/rotation = Quaternion(3.57648e-09, 1.50294e-07, 0.0179892, 0.999838)
 bones/14/scale = Vector3(1, 1, 1)
+script = ExtResource("3_qqxea")
 
 [node name="ModelR" type="MeshInstance3D" parent="Chara/ArmR/SkellyR"]
 mesh = SubResource("ArrayMesh_v12sm")
 skin = SubResource("Skin_a4v10")
+surface_material_override/0 = SubResource("ShaderMaterial_8y7u4")
 
 [node name="SkellyIKR" type="SkeletonIK3D" parent="Chara/ArmR/SkellyR"]
 process_priority = 1
 root_bone = &"Root"
 tip_bone = &"Tip"
+use_magnet = true
+magnet = Vector3(10, 10, 10)
 target_node = NodePath("../../HandR/WristR")
 script = ExtResource("3_q0drx")
 
@@ -403,6 +435,7 @@ transform = Transform3D(1, -5.37287e-16, 0, 3.01543e-15, 1, 0, 0, 0, 1, 0, 0, -1
 transform = Transform3D(1, 7.10543e-15, -8.05937e-16, -5.37287e-16, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.0699997, -1)
 mesh = SubResource("ArrayMesh_4kdcd")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_8y7u4")
 
 [node name="HandLCollider" type="CollisionShape3D" parent="Chara/ArmL/HandL"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.07, -10.5)
@@ -515,15 +548,19 @@ bones/14/enabled = true
 bones/14/position = Vector3(-5.82105e-10, 1.00152, 2.68674e-14)
 bones/14/rotation = Quaternion(3.57648e-09, 1.50294e-07, 0.0179892, 0.999838)
 bones/14/scale = Vector3(1, 1, 1)
+script = ExtResource("3_qqxea")
 
 [node name="ModelL" type="MeshInstance3D" parent="Chara/ArmL/SkellyL"]
 mesh = SubResource("ArrayMesh_48ibq")
 skin = SubResource("Skin_21guh")
+surface_material_override/0 = SubResource("ShaderMaterial_8y7u4")
 
 [node name="SkellyIKL" type="SkeletonIK3D" parent="Chara/ArmL/SkellyL"]
 process_priority = 1
 root_bone = &"Root"
 tip_bone = &"Tip"
+use_magnet = true
+magnet = Vector3(10, 10, 10)
 target_node = NodePath("../../HandL/WristL")
 script = ExtResource("3_q0drx")
 
