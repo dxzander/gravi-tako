@@ -15,14 +15,6 @@ func _on_ready():
 func _physics_process(delta):
 	#rotate(Vector3(0.0, 0.0, 1.0), rotation_speed)
 	get_up()
-	
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y -= gravity * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
