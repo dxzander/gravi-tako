@@ -53,9 +53,9 @@ mesh = SubResource("PlaneMesh_8eqtj")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_kj37b")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+[node name="Floor StaticBody" type="StaticBody3D" parent="Floor"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+[node name="Floor Collision" type="CollisionShape3D" parent="Floor/Floor StaticBody"]
 shape = SubResource("ConcavePolygonShape3D_jlugn")
 
 [node name="Control" type="Control" parent="."]

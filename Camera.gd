@@ -15,4 +15,8 @@ func _physics_process(delta):
 	lerpedTar = curTar.lerp(realTar, rotation_speed)
 	look_at(lerpedTar, get_parent().get_up())
 	curTar = lerpedTar
+	$Raymond.set_target_position(realTar)
+	if $Raymond.is_colliding():
+		#print($Raymond.get_collider().name)
+		pass
 	pass

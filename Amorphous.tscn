@@ -264,41 +264,47 @@ script = ExtResource("1_y7hgi")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_04ihv")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="Body Collider" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_s2yhx")
 
-[node name="Up" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="Chara" type="Node3D" parent="."]
-
-[node name="Body" type="MeshInstance3D" parent="Chara"]
+[node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_58p5c")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_8y7u4")
 
-[node name="ArmR" type="Node3D" parent="Chara"]
+[node name="SoftBody3D" type="SoftBody3D" parent="."]
+visible = false
+mesh = SubResource("ArrayMesh_58p5c")
+surface_material_override/0 = SubResource("ShaderMaterial_8y7u4")
+parent_collision_ignore = NodePath("..")
+
+[node name="Up" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Arms" type="Node3D" parent="."]
+
+[node name="ArmR" type="Node3D" parent="Arms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.998308, 0, 0)
 
-[node name="HandR" type="CharacterBody3D" parent="Chara/ArmR"]
+[node name="HandR" type="CharacterBody3D" parent="Arms/ArmR"]
 transform = Transform3D(0.246816, -1.49012e-08, 0, 1.49012e-08, 0.246816, 0, 0, 0, 0.246816, 2, 1.7, 0)
 motion_mode = 1
 script = ExtResource("1_uti64")
 
-[node name="WristR" type="Node3D" parent="Chara/ArmR/HandR"]
+[node name="WristR" type="Node3D" parent="Arms/ArmR/HandR"]
 transform = Transform3D(1, 2.66801e-14, 0, -2.80293e-14, 1, 0, 0, 0, 1, 0, 0, -10)
 
-[node name="HandRModel" type="MeshInstance3D" parent="Chara/ArmR/HandR/WristR"]
+[node name="HandRModel" type="MeshInstance3D" parent="Arms/ArmR/HandR/WristR"]
 transform = Transform3D(1, -6.35275e-22, 5.68434e-14, -5.68434e-14, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.07, -1)
 mesh = SubResource("ArrayMesh_4kdcd")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_8y7u4")
 
-[node name="HandRCollider" type="CollisionShape3D" parent="Chara/ArmR/HandR"]
+[node name="HandRCollider" type="CollisionShape3D" parent="Arms/ArmR/HandR"]
 transform = Transform3D(1, -2.13622e-21, 9.8651e-14, -9.90835e-14, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.0699997, -10.5)
 shape = SubResource("CapsuleShape3D_qej6c")
 
-[node name="SkellyR" type="Skeleton3D" parent="Chara/ArmR"]
+[node name="SkellyR" type="Skeleton3D" parent="Arms/ArmR"]
 bones/0/name = "Root"
 bones/0/parent = -1
 bones/0/rest = Transform3D(0.00166231, 0.999999, 1.34022e-07, -0.999999, 0.00166231, 1.81859e-07, 1.81636e-07, -1.34325e-07, 1, 0, 0, 0)
@@ -406,12 +412,12 @@ bones/14/rotation = Quaternion(3.57648e-09, 1.50294e-07, 0.0179892, 0.999838)
 bones/14/scale = Vector3(1, 1, 1)
 script = ExtResource("3_qqxea")
 
-[node name="ModelR" type="MeshInstance3D" parent="Chara/ArmR/SkellyR"]
+[node name="ModelR" type="MeshInstance3D" parent="Arms/ArmR/SkellyR"]
 mesh = SubResource("ArrayMesh_v12sm")
 skin = SubResource("Skin_a4v10")
 surface_material_override/0 = SubResource("ShaderMaterial_8y7u4")
 
-[node name="SkellyIKR" type="SkeletonIK3D" parent="Chara/ArmR/SkellyR"]
+[node name="SkellyIKR" type="SkeletonIK3D" parent="Arms/ArmR/SkellyR"]
 process_priority = 1
 root_bone = &"Root"
 tip_bone = &"Tip"
@@ -420,28 +426,28 @@ magnet = Vector3(10, 10, 10)
 target_node = NodePath("../../HandR/WristR")
 script = ExtResource("3_q0drx")
 
-[node name="ArmL" type="Node3D" parent="Chara"]
+[node name="ArmL" type="Node3D" parent="Arms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.904625, 0, 0)
 
-[node name="HandL" type="CharacterBody3D" parent="Chara/ArmL"]
+[node name="HandL" type="CharacterBody3D" parent="Arms/ArmL"]
 transform = Transform3D(0.246816, 7.45058e-09, -2.15773e-08, -7.45058e-09, 0.246816, 2.15773e-08, 2.15773e-08, -2.15773e-08, 0.246816, -2, 1.7, 0)
 motion_mode = 1
 script = ExtResource("1_uti64")
 
-[node name="WristL" type="Node3D" parent="Chara/ArmL/HandL"]
+[node name="WristL" type="Node3D" parent="Arms/ArmL/HandL"]
 transform = Transform3D(1, -5.37287e-16, 0, 3.01543e-15, 1, 0, 0, 0, 1, 0, 0, -10)
 
-[node name="HandLModel" type="MeshInstance3D" parent="Chara/ArmL/HandL/WristL"]
+[node name="HandLModel" type="MeshInstance3D" parent="Arms/ArmL/HandL/WristL"]
 transform = Transform3D(1, 7.10543e-15, -8.05937e-16, -5.37287e-16, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.0699997, -1)
 mesh = SubResource("ArrayMesh_4kdcd")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_8y7u4")
 
-[node name="HandLCollider" type="CollisionShape3D" parent="Chara/ArmL/HandL"]
+[node name="HandLCollider" type="CollisionShape3D" parent="Arms/ArmL/HandL"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.07, -10.5)
 shape = SubResource("CapsuleShape3D_qej6c")
 
-[node name="SkellyL" type="Skeleton3D" parent="Chara/ArmL"]
+[node name="SkellyL" type="Skeleton3D" parent="Arms/ArmL"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 bones/0/name = "Root"
 bones/0/parent = -1
@@ -550,12 +556,12 @@ bones/14/rotation = Quaternion(3.57648e-09, 1.50294e-07, 0.0179892, 0.999838)
 bones/14/scale = Vector3(1, 1, 1)
 script = ExtResource("3_qqxea")
 
-[node name="ModelL" type="MeshInstance3D" parent="Chara/ArmL/SkellyL"]
+[node name="ModelL" type="MeshInstance3D" parent="Arms/ArmL/SkellyL"]
 mesh = SubResource("ArrayMesh_48ibq")
 skin = SubResource("Skin_21guh")
 surface_material_override/0 = SubResource("ShaderMaterial_8y7u4")
 
-[node name="SkellyIKL" type="SkeletonIK3D" parent="Chara/ArmL/SkellyL"]
+[node name="SkellyIKL" type="SkeletonIK3D" parent="Arms/ArmL/SkellyL"]
 process_priority = 1
 root_bone = &"Root"
 tip_bone = &"Tip"
@@ -570,6 +576,11 @@ script = ExtResource("3_26r2a")
 [node name="Camera3D" type="Camera3D" parent="Camera"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 4, 8)
 fov = 37.8493
+
+[node name="Raymond" type="RayCast3D" parent="Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 4, 8)
+target_position = Vector3(2.08165e-12, -4, -23)
+debug_shape_thickness = 4
 
 [node name="Reticle" type="Node3D" parent="."]
 script = ExtResource("3_o0l0v")
