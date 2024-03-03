@@ -73,13 +73,13 @@ shader_parameter/shadow_thickness = 1.0
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_vwoej")
 shader = ExtResource("2_fkub8")
-shader_parameter/main_color = Color(0.858824, 0.858824, 0.858824, 1)
+shader_parameter/main_color = Color(0.317647, 0.0588235, 0.454902, 1)
 shader_parameter/roughness = 0.0
 shader_parameter/shade_threshold = 0.0
 shader_parameter/shade_softness = 0.0
 shader_parameter/shade_darkness = 1.0
 shader_parameter/edge_strength = 0.5
-shader_parameter/edge_color = Color(0.431373, 0.0941176, 0.615686, 1)
+shader_parameter/edge_color = Color(0.945098, 0.890196, 0.992157, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41utq"]
 

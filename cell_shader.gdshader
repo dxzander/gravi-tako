@@ -55,23 +55,6 @@ void fragment() {
 	ROUGHNESS = roughness;
 }
 
-//void light() {
-	////Called for every pixel for every light affecting the material.
-	////Uncomment to replace the default light processing function with this one.
-	//float NdotL = dot(NORMAL, LIGHT);
-	////float is_lit = step(shade_threshold, NdotL);
-	//vec3 base = ALBEDO.rgb * LIGHT_COLOR / PI;
-	//vec3 light_hsv = rgb2hsv(base);
-	//vec3 shade = hsv2rgb(vec3(light_hsv.x, light_hsv.y, light_hsv.z * 0.8));
-	//
-	//float shade_value = smoothstep(shade_threshold - shade_softness, shade_threshold + shade_softness, NdotL);
-	//
-	//// Shadows
-	//shade_value *= ATTENUATION;
-	//vec3 diffuse = mix(shade, base, shade_value);
-	//DIFFUSE_LIGHT += diffuse;
-//}
-
 void light() {
 	//Called for every pixel for every light affecting the material.
 	//Uncomment to replace the default light processing function with this one.
