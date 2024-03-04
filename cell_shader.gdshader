@@ -5,12 +5,17 @@ render_mode cull_disabled;
 
 uniform sampler2D main_texture : source_color, hint_default_white;
 uniform vec4 main_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
-uniform float roughness : hint_range(0.0, 1.0) = 0.0;
-uniform float shade_threshold : hint_range(-1.0, 1.0, 0.001) = 0.0;
-uniform float shade_softness : hint_range(0.0, 1.0, 0.001) = 0.05;
-uniform float shade_darkness : hint_range(0.0, 1.0, 0.05) = 0.2; //supposed to be a %
 
-uniform float edge_strength : hint_range(0.0, 1.0) = 1.0;
+uniform float roughness : hint_range(0.0, 1.0) = 0.0;
+
+uniform float shade_threshold : hint_range(-1.0, 1.0, 0.001) = 0.0;
+uniform float shade_softness : hint_range(0.0, 1.0, 0.001) = 0.1;
+uniform float shade_darkness : hint_range(0.0, 1.0, 0.05) = 0.5; //supposed to be a %
+uniform vec4 shade_color : source_color = vec4(0.0, 0.0, 0.0, 0.0);
+uniform bool parametric_shade = true;
+
+uniform float edge_threshold : hint_range(0.0, 1.0, 0.001) = 0.5;
+uniform float edge_softness : hint_range(0.0, 1.0, 0.001) = 0.05;
 uniform vec4 edge_color : source_color = vec4(1.0, 1.0, 1.0, 0.4);
 
 vec3 rgb2hsv(vec3 c) {
@@ -42,15 +47,17 @@ void vertex() {
 void fragment() {
 	// Called for every pixel the material is visible on.
 	vec4 _main = texture(main_texture, UV) * main_color;
-	float VdotN = dot(VIEW * edge_strength, NORMAL);
+	float VdotN = dot(VIEW, NORMAL);
 	
 	float fresnel = clamp(SchlickFresnel(VdotN), 0.0, 1.0);
 	
 	// apply glass look
-	float a = mix(0.001, 1.0, fresnel);
+	//float a = mix(0.001, 1.0, fresnel);
 	//ALPHA = mix(fresnel * edge_color.a, 1.0, a);
 	//ALBEDO = mix(edge_color.rgb * edge_color.a, _main.rgb, a);
 	
+	// normal toon
+	float a = smoothstep(edge_threshold - edge_softness, edge_threshold + edge_softness, fresnel);
 	ALBEDO = _main.rgb + edge_color.rgb * edge_color.a * a;
 	ROUGHNESS = roughness;
 }
@@ -62,7 +69,11 @@ void light() {
 	//float is_lit = step(shade_threshold, NdotL);
 	vec3 base = ALBEDO.rgb;
 	vec3 light_hsv = rgb2hsv(base);
-	vec3 shade = hsv2rgb(vec3(light_hsv.x, light_hsv.y, light_hsv.z * (1.0 - shade_darkness)));
+	vec3 shade = shade_color.rgb;
+	
+	if (parametric_shade) {
+		shade = hsv2rgb(vec3(light_hsv.x, light_hsv.y, light_hsv.z * (1.0 - shade_darkness)));
+	}
 	
 	float shade_value = smoothstep(shade_threshold - shade_softness, shade_threshold + shade_softness, NdotL);
 	
