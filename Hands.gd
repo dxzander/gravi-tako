@@ -16,10 +16,10 @@ var lerpedTar = Vector3(0, 0, 0)
 
 func _physics_process(delta):
 	# set new up
-	set_up_direction(get_parent().get_parent().get_parent().get_up())
+	set_up_direction(get_parent().get_parent().get_up())
 	
 	# set target
-	realTar = $"../../../Reticle/Reticle3D".global_transform.origin
+	realTar = $"../../Reticle/Reticle3D".global_transform.origin
 	
 	# lemniscate hover animation
 	lemniscateTimeCounter = lemniscateTimeCounter + lemniscateTimeCounterRate

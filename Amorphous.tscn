@@ -63,7 +63,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_e1iim")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vwoej"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_elm3c"]
 render_priority = 0
 shader = ExtResource("2_ijsdj")
 shader_parameter/shadow_color = Color(0.431373, 0.0941176, 0.615686, 1)
@@ -71,7 +71,7 @@ shader_parameter/shadow_thickness = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8y7u4"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_vwoej")
+next_pass = SubResource("ShaderMaterial_elm3c")
 shader = ExtResource("2_fkub8")
 shader_parameter/main_color = Color(0.317647, 0.0588235, 0.454902, 1)
 shader_parameter/roughness = 0.0
@@ -83,7 +83,7 @@ shader_parameter/edge_color = Color(0.945098, 0.890196, 0.992157, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41utq"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_bg34i"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_shws6"]
 _surfaces = [{
 "aabb": AABB(-1, -1, -1, 2, 2, 2),
 "format": 34896613377,
@@ -111,7 +111,7 @@ _surfaces = [{
 "vertex_data": PackedByteArray(255, 127, 0, 0, 0, 0, 245, 233, 255, 127, 0, 0, 0, 0, 255, 63, 255, 127, 0, 0, 0, 0, 245, 233, 129, 218, 0, 0, 125, 37, 255, 63, 129, 218, 0, 0, 125, 37, 245, 233, 129, 218, 0, 0, 125, 37, 165, 214, 255, 255, 0, 0, 255, 127, 255, 63, 255, 255, 0, 0, 255, 127, 165, 214, 255, 255, 0, 0, 255, 127, 3, 193, 129, 218, 0, 0, 129, 218, 255, 63, 129, 218, 0, 0, 129, 218, 94, 164, 129, 218, 0, 0, 129, 218, 3, 193, 255, 127, 0, 0, 255, 255, 94, 164, 255, 127, 0, 0, 255, 255, 255, 63, 255, 127, 0, 0, 255, 255, 94, 164, 125, 37, 0, 0, 129, 218, 3, 193, 125, 37, 0, 0, 129, 218, 94, 164, 125, 37, 0, 0, 129, 218, 255, 63, 0, 0, 0, 0, 255, 127, 165, 214, 0, 0, 0, 0, 255, 127, 3, 193, 0, 0, 0, 0, 255, 127, 255, 63, 125, 37, 0, 0, 125, 37, 165, 214, 125, 37, 0, 0, 125, 37, 245, 233, 125, 37, 0, 0, 125, 37, 255, 63, 255, 127, 255, 255, 255, 127, 165, 214, 255, 127, 255, 255, 255, 127, 3, 193, 255, 127, 255, 255, 255, 127, 245, 233, 255, 127, 255, 255, 255, 127, 94, 164, 255, 127, 255, 255, 255, 127, 245, 233, 255, 127, 255, 255, 255, 127, 94, 164, 255, 127, 255, 255, 255, 127, 165, 214, 255, 127, 255, 255, 255, 127, 3, 193, 141, 224, 192, 168, 0, 0, 255, 127, 61, 215, 142, 96, 0, 0, 255, 127, 61, 215, 142, 96, 126, 190, 95, 89, 0, 0, 255, 127, 126, 190, 95, 89, 19, 179, 110, 96, 0, 0, 255, 127, 170, 177, 25, 110, 19, 179, 110, 96, 25, 238, 84, 206, 0, 0, 255, 127, 170, 177, 25, 110, 110, 224, 235, 204, 25, 238, 84, 206, 0, 0, 255, 127, 95, 217, 128, 193, 110, 224, 235, 204, 0, 0, 255, 127, 95, 217, 128, 193, 141, 224, 192, 168, 0, 0, 255, 127, 95, 217, 128, 193, 110, 224, 235, 204, 141, 224, 192, 168, 25, 238, 84, 206, 61, 215, 142, 96, 170, 177, 25, 110, 126, 190, 95, 89, 19, 179, 110, 96)
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_bg34i")
+shadow_mesh = SubResource("ArrayMesh_shws6")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qej6c"]
 radius = 1.0

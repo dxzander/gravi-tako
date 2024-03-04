@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://1uph104a2d2v"]
 
-[ext_resource type="PackedScene" uid="uid://cu62uo8d3bfe0" path="res://Amorphous.tscn" id="1_5vq3h"]
+[ext_resource type="PackedScene" uid="uid://bxejyvi3ta8mf" path="res://Amorphous2.tscn" id="1_it4we"]
 [ext_resource type="Shader" path="res://outline2.gdshader" id="2_nx8yv"]
 [ext_resource type="Shader" path="res://cell_shader.gdshader" id="2_x5bg0"]
 [ext_resource type="Shader" path="res://Overlay Mixes.gdshader" id="3_hxu42"]
@@ -45,8 +45,8 @@ transform = Transform3D(1, -5.2318e-16, -3.02058e-16, -3.02058e-16, -0.866025, 0
 shadow_enabled = true
 sky_mode = 1
 
-[node name="Amorphous" parent="." instance=ExtResource("1_5vq3h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="Amorphous" parent="." instance=ExtResource("1_it4we")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_8eqtj")
