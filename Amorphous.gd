@@ -1,57 +1,69 @@
-extends CharacterBody3D
+extends Node3D
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+@export var SPEED = 10.0
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-
-var rotation_speed = 0.01
+@export var rotation_speed = 4.0
 var upOrientation = Vector3(0.0, 1.0, 0.0)
 var curOrientation = Vector3(0, 0, 0)
 var tarOrientation = Vector3(0, 0, 0)
 var lerOrientation = Vector3(0, 0, 0)
 
+@export var ground_offset: float = 0.5
+
+@onready var cl_leg = $Marks/MarkCL
+@onready var cr_leg = $Marks/MarkCR
+@onready var fl_leg = $Marks/MarkFL
+@onready var fr_leg = $Marks/MarkFR
+@onready var bl_leg = $Marks/MarkBL
+@onready var br_leg = $Marks/MarkBR
 
 func _on_ready():
-	gravity = get_up()
+	pass
 
 func _physics_process(delta):
-	#rotate(Vector3(0.0, 0.0, 1.0), rotation_speed)
-	get_up()
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction = ($Camera.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	#print(transform.basis.z.angle_to(direction))
-	#print(input_dir.angle())
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-
-	move_and_slide()
+	#rotate(Vector3(0.0, 0.0, 1.0), 0.01)
 	
-	# up 0,0,-1 = 0,0,0 = -1.5
-	# down 0,0,1 = 0,-180,0 = 1.5
-	# right 1,0,0 = 0,-90,0 = 0
-	# left -1,0,0 = 0,90,0 = 3.14
+	var plane1 = Plane(fl_leg.global_position, fr_leg.global_position, br_leg.global_position)
+	var plane2 = Plane(fr_leg.global_position, fl_leg.global_position, bl_leg.global_position)
+	var avg_normal = ((plane1.normal + plane2.normal) / 2 ).normalized()
 	
-	#curOrientation = get_global_rotation()
-	#tarOrientation = curOrientation.lerp(input_dir.angle(), rotation_speed)
-	#set_rotation(Vector3(curOrientation.x, input_dir.angle()+PI/2, curOrientation.z))
+	var target_basis = _basis_from_normal(avg_normal)
+	transform.basis = lerp(transform.basis, target_basis, SPEED * delta).orthonormalized()
 	
-	#if direction:
-		#lerOrientation = curOrientation.lerp(direction, rotation_speed)
-		#print(lerOrientation)
-		#look_at(lerOrientation, get_up())
-		#curOrientation = lerOrientation
-	
+	_handle_movement(delta)
 	pass
-	
+
 func get_up():
 	upOrientation = global_position.direction_to($Up.global_transform.origin)
 	return upOrientation
+
+func _handle_movement(delta):
+	get_up()
+	
+	var x_dir = Input.get_axis("ui_right", "ui_left")
+	var y_dir = Input.get_axis("ui_up", "ui_down")
+	#var direction = ($Camera.global_transform.basis * Vector3(x_dir, 0, y_dir)).normalized()
+	var direction = (Vector3(x_dir, 0, y_dir)).normalized()
+	translate(direction * SPEED * delta)
+	#if direction:
+		#velocity.x = direction.x * SPEED
+		#velocity.z = direction.z * SPEED
+	#else:
+		#velocity.x = move_toward(velocity.x, 0, SPEED)
+		#velocity.z = move_toward(velocity.z, 0, SPEED)
+	#
+	#move_and_slide()
+	
+	rotate_object_local(Vector3.UP, x_dir * rotation_speed * delta)
+
+func _basis_from_normal(normal: Vector3) -> Basis:
+	var result = Basis()
+	result.x = normal.cross(transform.basis.z)
+	result.y = normal
+	result.z = transform.basis.x.cross(normal)
+	
+	result = result.orthonormalized()
+	result.x *= scale.x
+	result.y *= scale.y
+	result.z *= scale.z
+	return result

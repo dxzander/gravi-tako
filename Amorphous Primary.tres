@@ -7,13 +7,13 @@
 render_priority = 0
 shader = ExtResource("1_yi3t8")
 shader_parameter/shadow_color = Color(0.176471, 0.121569, 0.223529, 1)
-shader_parameter/shadow_thickness = 2.0
+shader_parameter/shadow_thickness = 3.0
 
 [resource]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_hc82o")
 shader = ExtResource("2_isxl1")
-shader_parameter/main_color = Color(0.878431, 0.843137, 0.933333, 1)
+shader_parameter/main_color = Color(0.490196, 0.439216, 0.537255, 1)
 shader_parameter/roughness = 0.0
 shader_parameter/shade_threshold = 0.0
 shader_parameter/shade_softness = 0.1

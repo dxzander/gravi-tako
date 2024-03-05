@@ -7,7 +7,7 @@
 render_priority = 0
 shader = ExtResource("1_h82ac")
 shader_parameter/shadow_color = Color(0.964706, 0.603922, 0.14902, 1)
-shader_parameter/shadow_thickness = 2.0
+shader_parameter/shadow_thickness = 3.0
 
 [resource]
 render_priority = 0
