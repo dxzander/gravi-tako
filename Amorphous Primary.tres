@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dc1fxpybq57ro"]
+
+[ext_resource type="Shader" path="res://outline2.gdshader" id="1_4tjdc"]
+[ext_resource type="Shader" path="res://cell_shader.gdshader" id="2_isxl1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hc82o"]
+render_priority = 0
+shader = ExtResource("1_4tjdc")
+shader_parameter/shadow_color = Color(0.180392, 0.133333, 0.219608, 1)
+shader_parameter/shadow_thickness = 3.0
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_hc82o")
+shader = ExtResource("2_isxl1")
+shader_parameter/main_color = Color(0.796078, 0.729412, 0.858824, 1)
+shader_parameter/roughness = 0.0
+shader_parameter/shade_threshold = 0.0
+shader_parameter/shade_softness = 0.1
+shader_parameter/shade_darkness = 0.5
+shader_parameter/shade_color = Color(0.180392, 0.133333, 0.219608, 1)
+shader_parameter/parametric_shade = false
+shader_parameter/edge_threshold = 0.5
+shader_parameter/edge_softness = 0.05
+shader_parameter/edge_color = Color(0.913725, 0.894118, 0.929412, 1)
