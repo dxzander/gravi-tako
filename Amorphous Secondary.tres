@@ -6,20 +6,20 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hc82o"]
 render_priority = 0
 shader = ExtResource("1_y0223")
-shader_parameter/outline_color = Color(0.180392, 0.133333, 0.219608, 1)
+shader_parameter/outline_color = Color(0.176471, 0.121569, 0.223529, 1)
 shader_parameter/outline_width = 3.0
 
 [resource]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_hc82o")
 shader = ExtResource("2_oqxwq")
-shader_parameter/main_color = Color(0.6, 0.45098, 0.741176, 1)
+shader_parameter/main_color = Color(0.490196, 0.439216, 0.537255, 1)
 shader_parameter/roughness = 0.0
 shader_parameter/shade_threshold = 0.0
 shader_parameter/shade_softness = 0.1
 shader_parameter/shade_darkness = 0.5
-shader_parameter/shade_color = Color(0.180392, 0.133333, 0.219608, 1)
+shader_parameter/shade_color = Color(0.176471, 0.121569, 0.223529, 1)
 shader_parameter/parametric_shade = false
-shader_parameter/edge_threshold = 0.5
+shader_parameter/edge_threshold = 0.1
 shader_parameter/edge_softness = 0.05
-shader_parameter/edge_color = Color(0.796078, 0.729412, 0.858824, 1)
+shader_parameter/edge_color = Color(0.984314, 0.698039, 0.439216, 1)

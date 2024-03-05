@@ -1,0 +1,6 @@
+F2EEFF	not white
+E0D7EE	not white 2
+7D7089	body
+2D1F39	outlines
+FBB270	rings
+F69A26	rings outlines
