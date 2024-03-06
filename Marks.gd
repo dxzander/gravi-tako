@@ -23,9 +23,9 @@ func _process(delta):
 	pass
 
 func step():
-	is_stepping = true
 	var tar_pos = step_target.global_position
 	var half_way = (global_position + step_target.global_position) / 2
+	is_stepping = true
 	
 	var t = get_tree().create_tween()
 	t.tween_property(self, "global_position", half_way + owner.basis.y, tween_speed_y)
