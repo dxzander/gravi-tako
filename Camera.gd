@@ -4,6 +4,10 @@ var rotation_speed = 0.1
 var curTar = Vector3(0, 0, 0)
 var realTar = Vector3(0, 0, 0)
 var lerpedTar = Vector3(0, 0, 0)
+const cam_default_position = Vector3(0, 11, 22)
+
+@export var target = Node3D
+@export var player = Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,12 +15,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	realTar = $"../Reticle/Reticle3D".global_transform.origin
+	#realTar = ((target.global_transform.origin + player.global_transform.origin) / 2).normalized()
+	realTar = target.global_transform.origin
 	lerpedTar = curTar.lerp(realTar, rotation_speed)
-	look_at(lerpedTar, get_parent().get_up())
+	look_at(lerpedTar, player.get_up())
 	curTar = lerpedTar
-	$Raymond.set_target_position(realTar)
 	if $Raymond.is_colliding():
-		#print($Raymond.get_collider().name)
-		pass
-	pass
+		print($Raymond.get_collision_point())
+		$Camera3D.global_position = $Raymond.get_collision_point()
+	else:
+		$Camera3D.position = cam_default_position

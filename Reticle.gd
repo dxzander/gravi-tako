@@ -13,9 +13,9 @@ func _process(delta):
 	pass
 
 func _physics_process(delta):
-	var input_dir = Input.get_vector("cam_left", "cam_right", "cam_up", "cam_down")
+	var input_dir = Input.get_vector("cam_right", "cam_left", "cam_up", "cam_down")
 	var curRotHor = get_rotation_degrees().x
-	rotate(Vector3(0.0, 1.0, 0.0), rotation_speed * -input_dir.x)
+	rotate(Vector3(0.0, 1.0, 0.0), rotation_speed * input_dir.x)
 	if curRotHor <= max_angle and curRotHor >= -max_angle:
 		rotate_object_local(Vector3(1.0, 0.0, 0.0), rotation_speed / 2 * -input_dir.y)
 	else:

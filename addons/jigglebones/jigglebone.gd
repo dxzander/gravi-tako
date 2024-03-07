@@ -122,7 +122,7 @@ func _physics_process(delta) -> void:
 	skeleton.set_bone_global_pose_override(bone_id, bone_new_transf_obj, 0.5, true)
 
 	# Orient this object to the jigglebone
-	global_transform.basis = (skeleton.global_transform * skeleton.get_bone_global_pose(bone_id)).basis
+	global_transform.basis = (skeleton.global_transform * skeleton.get_bone_global_pose(bone_id)).basis.orthonormalized()
 
 
 func get_bone_forward_local() -> Vector3:
