@@ -18,6 +18,12 @@ uniform float edge_threshold : hint_range(0.0, 1.0, 0.001) = 0.5;
 uniform float edge_softness : hint_range(0.0, 1.0, 0.001) = 0.05;
 uniform vec4 edge_color : source_color = vec4(1.0, 1.0, 1.0, 0.4);
 
+uniform bool use_emission = false;
+uniform vec4 emission_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+
+uniform bool is_metal = false;
+uniform float metalness : hint_range(0.0, 1.0) = 1.0;
+
 vec3 rgb2hsv(vec3 c) {
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
     vec4 p = mix(vec4(c.bg, K.wz), vec4(c.gb, K.xy), step(c.b, c.g));
@@ -60,6 +66,12 @@ void fragment() {
 	float a = smoothstep(edge_threshold - edge_softness, edge_threshold + edge_softness, fresnel);
 	ALBEDO = _main.rgb + edge_color.rgb * edge_color.a * a;
 	ROUGHNESS = roughness;
+	if (use_emission) {
+		EMISSION = emission_color.rgb;
+	}
+	if (is_metal) {
+		METALLIC = metalness;
+	}
 }
 
 void light() {

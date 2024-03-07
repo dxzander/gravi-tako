@@ -2,14 +2,15 @@ extends CharacterBody3D
 
 @export var SPEED := 10.0
 @export var rotation_speed := 4.0
-const JUMP_DIR := Vector3.UP
+var JUMP_DIR := Vector3.UP
 
 var upOrientation := Vector3.UP
 var frontOrientation := Vector3.FORWARD
 var rightOrientation := Vector3.RIGHT
 var wall_normal := Vector3.UP
 var target_basis := Basis()
-var inertia := Vector3.DOWN
+var inertia := Vector3.UP
+var direction := Vector3.ZERO
 
 @onready var previous_position = position
 @onready var fl_leg = $Marks/MarkFL
@@ -23,10 +24,13 @@ func _on_ready():
 
 func _physics_process(delta):
 	#rotate(Vector3(0.0, 0.0, 1.0), 0.01)
+	get_up()
+	print(inertia)
 	
 	# my attempt
 	if Input.is_action_just_pressed("ui_accept") and is_on_wall():
 		# jump takes priority
+		JUMP_DIR = upOrientation + direction
 		velocity = JUMP_DIR * SPEED
 		inertia = JUMP_DIR
 	elif is_on_wall():
@@ -46,23 +50,24 @@ func _physics_process(delta):
 			#pass
 		#else:
 			#target_basis = _basis_from_normal(wall_normal)
-		var angle_to_normal = Vector3.UP.angle_to(wall_normal)
-		print(angle_to_normal)
-		if angle_to_normal < PI / 2:
-			target_basis = _basis_from_normal(wall_normal)
-			transform.basis = lerp(transform.basis.orthonormalized(), target_basis, SPEED * delta).orthonormalized()
-		else:
-			print("angle greater than pi / 2!")
+		
+		#var angle_to_normal = Vector3.UP.angle_to(wall_normal)
+		#print(angle_to_normal)
+		#if angle_to_normal > PI / 2:
+			#target_basis = _basis_from_normal(wall_normal)
+			#transform.basis = lerp(transform.basis.orthonormalized(), target_basis, SPEED * delta).orthonormalized()
+		#else:
+			#print("angle smaller  than pi / 2!")
+		target_basis = _basis_from_normal(wall_normal)
+		transform.basis = lerp(transform.basis.orthonormalized(), target_basis, SPEED * delta).orthonormalized()
 		get_up()
-		#transform.basis = target_basis
-		#transform = transform.orthonormalized()
 		
 		# get input
 		var x_dir = Input.get_axis("ui_right", "ui_left")
 		var y_dir = Input.get_axis("ui_up", "ui_down")
 		
 		# transform input based on camera
-		var direction = ($Camera.global_transform.basis * Vector3(0, 0, y_dir)).normalized()
+		direction = ($Camera.global_transform.basis * Vector3(0, 0, y_dir)).normalized()
 		velocity = direction * SPEED
 		
 		# rotate

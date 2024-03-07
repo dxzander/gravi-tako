@@ -20,8 +20,8 @@ func _physics_process(delta):
 	lerpedTar = curTar.lerp(realTar, rotation_speed)
 	look_at(lerpedTar, player.get_up())
 	curTar = lerpedTar
-	if $Raymond.is_colliding():
-		print($Raymond.get_collision_point())
-		$Camera3D.global_position = $Raymond.get_collision_point()
+	if $RayCam.is_colliding():
+		#print($RayCam.get_collision_point())
+		$Cam.global_position = $RayCam.get_collision_point() + cam_default_position.normalized()
 	else:
-		$Camera3D.position = cam_default_position
+		$Cam.position = cam_default_position

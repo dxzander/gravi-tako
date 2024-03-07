@@ -1,8 +1,28 @@
-[gd_scene load_steps=13 format=3 uid="uid://1uph104a2d2v"]
+[gd_scene load_steps=17 format=3 uid="uid://1uph104a2d2v"]
 
 [ext_resource type="PackedScene" uid="uid://bxejyvi3ta8mf" path="res://Amorphous2.tscn" id="1_it4we"]
 [ext_resource type="Material" uid="uid://ccsct3of4f1va" path="res://concrete.tres" id="2_y62g7"]
 [ext_resource type="Shader" path="res://Overlay Mixes.gdshader" id="3_hxu42"]
+[ext_resource type="Material" uid="uid://dcckxpuwf62hd" path="res://scifiwhite.tres" id="4_3qemv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bdy1o"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_sfibf"]
+sky_material = SubResource("ProceduralSkyMaterial_bdy1o")
+
+[sub_resource type="Environment" id="Environment_diua5"]
+background_mode = 1
+sky = SubResource("Sky_sfibf")
+ambient_light_source = 2
+reflected_light_source = 2
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.705882, 0.690196, 0.721569, 1)
+fog_light_energy = 0.5
+fog_density = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8eqtj"]
 size = Vector2(10, 10)
@@ -41,15 +61,20 @@ size = Vector3(5, 5, 2)
 
 [node name="test" type="Node3D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_diua5")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, -5.2318e-16, -3.02058e-16, -3.02058e-16, -0.866025, 0.5, -5.2318e-16, -0.5, -0.866025, 0, 52.3576, 0)
 shadow_enabled = true
 sky_mode = 1
 
 [node name="Amorphous" parent="." instance=ExtResource("1_it4we")]
+transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 0, 15, 80.73)
 
 [node name="Original" type="Node3D" parent="."]
 process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2980.59, 0, -1975.58)
 visible = false
 
 [node name="Floor" type="MeshInstance3D" parent="Original"]
@@ -104,23 +129,98 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.00392157, 0, 0.2, 1)
 
-[node name="Prototype" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 30, 0)
+[node name="Test1" type="Node3D" parent="."]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2433.76, 329.186, 0)
+visible = false
 
-[node name="Pod" type="CSGMesh3D" parent="Prototype"]
+[node name="Pod" type="CSGMesh3D" parent="Test1"]
 snap = 0.1
 use_collision = true
 flip_faces = true
 mesh = SubResource("CapsuleMesh_1dbar")
 material = ExtResource("2_y62g7")
 
-[node name="Tree Container" type="CSGMesh3D" parent="Prototype"]
+[node name="Tree Container" type="CSGMesh3D" parent="Test1"]
 use_collision = true
 mesh = SubResource("CylinderMesh_5fy6k")
 material = ExtResource("2_y62g7")
 
-[node name="Terrarium" type="CSGMesh3D" parent="Prototype"]
+[node name="Terrarium" type="CSGMesh3D" parent="Test1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -29.08)
 use_collision = true
 mesh = SubResource("BoxMesh_iyjon")
 material = ExtResource("2_y62g7")
+
+[node name="Proto1" type="Node3D" parent="."]
+
+[node name="Outer" type="CSGSphere3D" parent="Proto1"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+layers = 3
+use_collision = true
+flip_faces = true
+radius = 100.0
+material = ExtResource("4_3qemv")
+
+[node name="Inner" type="CSGSphere3D" parent="Proto1"]
+layers = 3
+use_collision = true
+flip_faces = true
+radius = 100.0
+material = ExtResource("4_3qemv")
+
+[node name="Inner Hall" type="CSGPolygon3D" parent="Proto1"]
+use_collision = true
+polygon = PackedVector2Array(0, 0, 100, 0, 100, 1, 0, 1)
+mode = 1
+spin_degrees = 360.0
+spin_sides = 12
+smooth_faces = true
+material = ExtResource("2_y62g7")
+
+[node name="Containment" type="CSGCombiner3D" parent="Proto1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 66.382)
+operation = 1
+use_collision = true
+
+[node name="Containment0" type="CSGBox3D" parent="Proto1/Containment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.05)
+layers = 3
+use_collision = true
+flip_faces = true
+size = Vector3(51, 20, 30)
+material = ExtResource("4_3qemv")
+
+[node name="Containmento1" type="CSGBox3D" parent="Proto1/Containment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.05)
+layers = 3
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(49.5, 19.95, 29.5)
+material = ExtResource("4_3qemv")
+
+[node name="Containment1" type="CSGBox3D" parent="Proto1/Containment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.95)
+layers = 3
+use_collision = true
+flip_faces = true
+size = Vector3(50, 20, 30)
+material = ExtResource("4_3qemv")
+
+[node name="Containment1i" type="CSGBox3D" parent="Proto1/Containment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.95)
+layers = 3
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(50.5, 19.95, 29.5)
+material = ExtResource("4_3qemv")
+
+[node name="Door" type="CSGBox3D" parent="Proto1/Containment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.49764, 0.0350037)
+layers = 3
+operation = 2
+use_collision = true
+size = Vector3(5, 5, 0.56)
+material = ExtResource("4_3qemv")
