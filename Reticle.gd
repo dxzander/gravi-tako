@@ -14,7 +14,7 @@ func _physics_process(delta):
 	var curRotHor = get_rotation_degrees().x
 	rotate(player.get_up(), rotation_speed * input_dir.x)
 	if curRotHor <= max_angle and curRotHor >= -max_angle:
-		rotate($"../Camera".global_transform.basis.x, rotation_speed * input_dir.y)
+		rotate(global_transform.basis.x, rotation_speed * input_dir.y)
 	else:
 		set_rotation_degrees(Vector3((curRotHor / abs(curRotHor)) * max_angle, get_rotation_degrees().y, get_rotation_degrees().z))
 	pass
