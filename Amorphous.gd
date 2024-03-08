@@ -1,38 +1,44 @@
 extends CharacterBody3D
 
-@export var SPEED := 10.0
-@export var rotation_speed := 4.0
+var SPEED := 10.0
+var rotation_speed := 4.0
 var JUMP_DIR := Vector3.UP
+var input_dir := Vector2.ZERO
 
 var upOrientation := Vector3.UP
 var frontOrientation := Vector3.FORWARD
 var rightOrientation := Vector3.RIGHT
+
 var wall_normal := Vector3.UP
-var target_basis := Basis()
 var inertia := Vector3.DOWN
 var direction := Vector3.ZERO
+var global_direction := Vector3.ZERO
 
-@onready var previous_position = position
-@onready var fl_leg = $Marks/MarkFL
-@onready var fr_leg = $Marks/MarkFR
-@onready var bl_leg = $Marks/MarkBL
-@onready var br_leg = $Marks/MarkBR
+var target_basis := Basis()
+var cam_basis := Basis()
 
-var curTar = Vector3(0, 0, 0)
-var realTar = Vector3(0, 0, 0)
-var lerpedTar = Vector3(0, 0, 0)
+var curTar := Vector3.ZERO
+var realTar := Vector3.ZERO
+var lerpedTar := Vector3.ZERO
+
+@onready var previous_position: Vector3 = position
+@onready var fl_leg: Node3D = $Marks/MarkFL
+@onready var fr_leg: Node3D = $Marks/MarkFR
+@onready var bl_leg: Node3D = $Marks/MarkBL
+@onready var br_leg: Node3D = $Marks/MarkBR
 
 func _on_ready():
 	#set_floor_block_on_wall_enabled(false)
 	pass
 
 func _physics_process(delta):
+	# for debugging
 	#rotate(Vector3(0.0, 0.0, 1.0), 0.01)
-	rotate(Vector3(0.0, 1.0, 0.0), 0.01)
-	get_up()
-	#print(inertia)
+	#rotate(Vector3(0.0, 1.0, 0.0), 0.01)
 	
-	# my attempt
+	print(is_on_wall())
+	
+	# handle movement
 	if Input.is_action_just_pressed("ui_accept") and is_on_wall():
 		# jump takes priority
 		JUMP_DIR = upOrientation + direction
@@ -42,107 +48,57 @@ func _physics_process(delta):
 		# movement while "grounded"
 		
 		# get input
-		var x_dir = Input.get_axis("ui_left", "ui_right")
-		var y_dir = Input.get_axis("ui_up", "ui_down")
+		input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized()
 		
 		# transform input based on camera
-		var cam_basis = $Camera.global_transform.basis
-		direction = cam_basis * Vector3(x_dir, 0, y_dir)
-		var global_direction = direction * global_basis
+		cam_basis = $Camera.global_transform.basis
+		direction = cam_basis * Vector3(input_dir.x, 0, input_dir.y)
+		global_direction = direction * global_basis
+		
 		direction = Vector3(direction.x, 0, direction.z).normalized()
 		global_direction = Vector3(global_direction.x, 0, global_direction.z).normalized()
-		$Dir.position = global_direction
-		#velocity = direction * SPEED
-		print($Dir.position)
 		
+		# set direction marker position 
+		if global_direction.length() == 1.0:
+			$Dir.position = global_direction
+		velocity = direction * SPEED
 		
 		# get wall orientation
 		wall_normal = get_wall_normal()
-		inertia = -wall_normal
+		inertia = wall_normal
 		#inertia = (previous_position - position).normalized() #for later
-		
-		# align to wall
-		#if is_close_enough(abs(transform.basis.z), abs(wall_normal)):
-			#target_basis = transform.basis.looking_at(upOrientation, frontOrientation)
-			##target_basis = transform.rotated_local(Vector3.RIGHT, transform.basis.z.signed_angle_to(Vector3.UP, Vector3.RIGHT)).basis
-			#pass
-		#elif is_close_enough(abs(transform.basis.x), abs(wall_normal)):
-			##target_basis = transform.rotated_local(Vector3.FORWARD, PI / 4).basis
-			#pass
-		#else:
-			#target_basis = _basis_from_normal(wall_normal)
-		
-		#var angle_to_normal = Vector3.UP.angle_to(wall_normal)
-		#print(angle_to_normal)
-		#if angle_to_normal > PI / 2:
-			#target_basis = _basis_from_normal(wall_normal)
-			#transform.basis = lerp(transform.basis.orthonormalized(), target_basis, SPEED * delta).orthonormalized()
-		#else:
-			#print("angle smaller  than pi / 2!")
-		#target_basis = _basis_from_normal(wall_normal)
-		
-		### THIS IS THE GOOD ONE
-		target_basis = transform.looking_at($Dir.global_transform.origin, wall_normal).basis
-		transform.basis = lerp(transform.basis.orthonormalized(), target_basis, SPEED * delta).orthonormalized()
-		get_up()
-		
-		## get input
-		#var x_dir = Input.get_axis("ui_left", "ui_right")
-		#var y_dir = Input.get_axis("ui_up", "ui_down")
-		#
-		## transform input based on camera
-		#direction = ($Camera.global_transform.basis * Vector3(x_dir, 0, y_dir)).normalized()
-		#$Dir.position = direction
-		#velocity = direction * SPEED
-		
-		# rotate
-		#rotate_object_local(Vector3.UP, x_dir * rotation_speed * delta)
-		
-		#realTar = global_position.direction_to($Dir.global_transform.origin).normalized()
-		#lerpedTar = curTar.lerp(realTar, rotation_speed * 0.01)
-		#look_at(lerpedTar, get_up())
-		#curTar = lerpedTar
 	else:
 		# intertial movement
 		velocity = inertia * SPEED
 	
+	# apply whatever movement was calculated
 	previous_position = position
 	move_and_slide()
+	
+	# apply whatever rotation
+	# handle rotation
+	### THIS IS THE GOOD ONE
+	if global_direction.length() == 1.0:
+		target_basis = transform.looking_at($Dir.global_transform.origin, wall_normal).basis
+	else:
+		target_basis = _basis_from_normal(wall_normal)
+	
+	transform.basis = lerp(transform.basis.orthonormalized(), target_basis, SPEED * delta).orthonormalized()
+	
+	# update variables
+	upOrientation = global_position.direction_to($Up.global_transform.origin).normalized()
+	frontOrientation = global_position.direction_to($Front.global_transform.origin).normalized()
+	rightOrientation = global_position.direction_to($Right.global_transform.origin).normalized()
 	pass
 
-func get_up():
-	upOrientation = global_position.direction_to($Up.global_transform.origin).normalized()
+func get_up() -> Vector3:
 	return upOrientation
 
-func get_front():
-	frontOrientation = global_position.direction_to($Front.global_transform.origin).normalized()
+func get_front() -> Vector3:
 	return frontOrientation
 
-func get_right():
-	rightOrientation = global_position.direction_to($Right.global_transform.origin).normalized()
+func get_right() -> Vector3:
 	return rightOrientation
-
-#func _handle_movement(delta):
-	#var x_dir = Input.get_axis("ui_right", "ui_left")
-	#var y_dir = Input.get_axis("ui_up", "ui_down")
-	#
-	##var direction = (Vector3(0, 0, y_dir)).normalized()
-	##translate_object_local(direction * SPEED * delta)
-	#
-	#var direction = ($Camera.global_transform.basis * Vector3(0, 0, y_dir)).normalized()
-	##if direction:
-		##velocity = direction * SPEED
-	##else:
-		##velocity.x = move_toward(velocity.x, 0, SPEED)
-		##velocity.z = move_toward(velocity.z, 0, SPEED)
-	#velocity = direction * SPEED
-	#
-	##print(direction)
-	#
-	##move_and_slide()
-	#
-	#rotate_object_local(Vector3.UP, x_dir * rotation_speed * delta)
-	#pass
 
 func _basis_from_normal(normal: Vector3) -> Basis:
 	var result = Basis()
