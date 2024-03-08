@@ -9,7 +9,7 @@ var frontOrientation := Vector3.FORWARD
 var rightOrientation := Vector3.RIGHT
 var wall_normal := Vector3.UP
 var target_basis := Basis()
-var inertia := Vector3.UP
+var inertia := Vector3.DOWN
 var direction := Vector3.ZERO
 
 @onready var previous_position = position
@@ -18,14 +18,19 @@ var direction := Vector3.ZERO
 @onready var bl_leg = $Marks/MarkBL
 @onready var br_leg = $Marks/MarkBR
 
+var curTar = Vector3(0, 0, 0)
+var realTar = Vector3(0, 0, 0)
+var lerpedTar = Vector3(0, 0, 0)
+
 func _on_ready():
 	#set_floor_block_on_wall_enabled(false)
 	pass
 
 func _physics_process(delta):
 	#rotate(Vector3(0.0, 0.0, 1.0), 0.01)
+	rotate(Vector3(0.0, 1.0, 0.0), 0.01)
 	get_up()
-	print(inertia)
+	#print(inertia)
 	
 	# my attempt
 	if Input.is_action_just_pressed("ui_accept") and is_on_wall():
@@ -35,6 +40,22 @@ func _physics_process(delta):
 		inertia = JUMP_DIR
 	elif is_on_wall():
 		# movement while "grounded"
+		
+		# get input
+		var x_dir = Input.get_axis("ui_left", "ui_right")
+		var y_dir = Input.get_axis("ui_up", "ui_down")
+		
+		# transform input based on camera
+		var cam_basis = $Camera.global_transform.basis
+		direction = cam_basis * Vector3(x_dir, 0, y_dir)
+		var global_direction = direction * global_basis
+		direction = Vector3(direction.x, 0, direction.z).normalized()
+		global_direction = Vector3(global_direction.x, 0, global_direction.z).normalized()
+		$Dir.position = global_direction
+		#velocity = direction * SPEED
+		print($Dir.position)
+		
+		
 		# get wall orientation
 		wall_normal = get_wall_normal()
 		inertia = -wall_normal
@@ -58,20 +79,29 @@ func _physics_process(delta):
 			#transform.basis = lerp(transform.basis.orthonormalized(), target_basis, SPEED * delta).orthonormalized()
 		#else:
 			#print("angle smaller  than pi / 2!")
-		target_basis = _basis_from_normal(wall_normal)
+		#target_basis = _basis_from_normal(wall_normal)
+		
+		### THIS IS THE GOOD ONE
+		target_basis = transform.looking_at($Dir.global_transform.origin, wall_normal).basis
 		transform.basis = lerp(transform.basis.orthonormalized(), target_basis, SPEED * delta).orthonormalized()
 		get_up()
 		
-		# get input
-		var x_dir = Input.get_axis("ui_right", "ui_left")
-		var y_dir = Input.get_axis("ui_up", "ui_down")
-		
-		# transform input based on camera
-		direction = ($Camera.global_transform.basis * Vector3(0, 0, y_dir)).normalized()
-		velocity = direction * SPEED
+		## get input
+		#var x_dir = Input.get_axis("ui_left", "ui_right")
+		#var y_dir = Input.get_axis("ui_up", "ui_down")
+		#
+		## transform input based on camera
+		#direction = ($Camera.global_transform.basis * Vector3(x_dir, 0, y_dir)).normalized()
+		#$Dir.position = direction
+		#velocity = direction * SPEED
 		
 		# rotate
-		rotate_object_local(Vector3.UP, x_dir * rotation_speed * delta)
+		#rotate_object_local(Vector3.UP, x_dir * rotation_speed * delta)
+		
+		#realTar = global_position.direction_to($Dir.global_transform.origin).normalized()
+		#lerpedTar = curTar.lerp(realTar, rotation_speed * 0.01)
+		#look_at(lerpedTar, get_up())
+		#curTar = lerpedTar
 	else:
 		# intertial movement
 		velocity = inertia * SPEED

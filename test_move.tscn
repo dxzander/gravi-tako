@@ -1,9 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://1uph104a2d2v"]
+[gd_scene load_steps=16 format=3 uid="uid://bwj2ew8lud58q"]
 
-[ext_resource type="PackedScene" uid="uid://bxejyvi3ta8mf" path="res://Amorphous2.tscn" id="1_it4we"]
-[ext_resource type="Material" uid="uid://ccsct3of4f1va" path="res://concrete.tres" id="2_y62g7"]
-[ext_resource type="Shader" path="res://Overlay Mixes.gdshader" id="3_hxu42"]
-[ext_resource type="Material" uid="uid://dcckxpuwf62hd" path="res://scifiwhite.tres" id="4_3qemv"]
+[ext_resource type="PackedScene" uid="uid://bxejyvi3ta8mf" path="res://Amorphous2.tscn" id="1_8y6y7"]
+[ext_resource type="Material" uid="uid://ccsct3of4f1va" path="res://concrete.tres" id="2_b4yvp"]
+[ext_resource type="Shader" path="res://Overlay Mixes.gdshader" id="3_os1q7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bdy1o"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -39,7 +38,7 @@ data = PackedVector3Array(0, 0.5, 0, 0, 0.5, 0, 0, 0.4977, 0.0475, 0, 0.5, 0, 0.
 data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yljk8"]
-shader = ExtResource("3_hxu42")
+shader = ExtResource("3_os1q7")
 shader_parameter/mode = 2
 shader_parameter/linearColorSpace = false
 shader_parameter/color1 = Color(0.431373, 0.0941176, 0.615686, 1)
@@ -69,19 +68,17 @@ transform = Transform3D(1, -5.2318e-16, -3.02058e-16, -3.02058e-16, -0.866025, 0
 shadow_enabled = true
 sky_mode = 1
 
-[node name="Amorphous" parent="." instance=ExtResource("1_it4we")]
-transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 0, 15, 80.73)
+[node name="Amorphous" parent="." instance=ExtResource("1_8y6y7")]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, -5.17443, 2.08165e-12, 2.08165e-12)
 
 [node name="Original" type="Node3D" parent="."]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2980.59, 0, -1975.58)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 
 [node name="Floor" type="MeshInstance3D" parent="Original"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("PlaneMesh_8eqtj")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_y62g7")
+surface_material_override/0 = ExtResource("2_b4yvp")
 
 [node name="Floor StaticBody" type="StaticBody3D" parent="Original/Floor"]
 
@@ -89,10 +86,10 @@ surface_material_override/0 = ExtResource("2_y62g7")
 shape = SubResource("ConcavePolygonShape3D_jlugn")
 
 [node name="za warudo" type="MeshInstance3D" parent="Original"]
-transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, -25, 0)
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 99.4966, 0)
 mesh = SubResource("SphereMesh_kavwc")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("2_y62g7")
+surface_material_override/0 = ExtResource("2_b4yvp")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Original/za warudo"]
 
@@ -103,7 +100,7 @@ shape = SubResource("ConcavePolygonShape3D_fxoaj")
 transform = Transform3D(-4.37114e-07, 10, 0, -10, -4.37114e-07, 0, 0, 0, 10, -50, 50, 0)
 mesh = SubResource("PlaneMesh_8eqtj")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_y62g7")
+surface_material_override/0 = ExtResource("2_b4yvp")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Original/Floor2"]
 
@@ -138,88 +135,15 @@ snap = 0.1
 use_collision = true
 flip_faces = true
 mesh = SubResource("CapsuleMesh_1dbar")
-material = ExtResource("2_y62g7")
+material = ExtResource("2_b4yvp")
 
 [node name="Tree Container" type="CSGMesh3D" parent="Test1"]
 use_collision = true
 mesh = SubResource("CylinderMesh_5fy6k")
-material = ExtResource("2_y62g7")
+material = ExtResource("2_b4yvp")
 
 [node name="Terrarium" type="CSGMesh3D" parent="Test1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -29.08)
 use_collision = true
 mesh = SubResource("BoxMesh_iyjon")
-material = ExtResource("2_y62g7")
-
-[node name="Proto1" type="Node3D" parent="."]
-
-[node name="Outer" type="CSGSphere3D" parent="Proto1"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
-layers = 3
-use_collision = true
-flip_faces = true
-radius = 100.0
-material = ExtResource("4_3qemv")
-
-[node name="Inner" type="CSGSphere3D" parent="Proto1"]
-layers = 3
-use_collision = true
-flip_faces = true
-radius = 100.0
-material = ExtResource("4_3qemv")
-
-[node name="Inner Hall" type="CSGPolygon3D" parent="Proto1"]
-use_collision = true
-polygon = PackedVector2Array(0, 0, 100, 0, 100, 1, 0, 1)
-mode = 1
-spin_degrees = 360.0
-spin_sides = 12
-smooth_faces = true
-material = ExtResource("2_y62g7")
-
-[node name="Containment" type="CSGCombiner3D" parent="Proto1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 66.382)
-operation = 1
-use_collision = true
-
-[node name="Containment0" type="CSGBox3D" parent="Proto1/Containment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.05)
-layers = 3
-use_collision = true
-flip_faces = true
-size = Vector3(51, 20, 30)
-material = ExtResource("4_3qemv")
-
-[node name="Containmento1" type="CSGBox3D" parent="Proto1/Containment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.05)
-layers = 3
-operation = 2
-use_collision = true
-flip_faces = true
-size = Vector3(49.5, 19.95, 29.5)
-material = ExtResource("4_3qemv")
-
-[node name="Containment1" type="CSGBox3D" parent="Proto1/Containment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.95)
-layers = 3
-use_collision = true
-flip_faces = true
-size = Vector3(50, 20, 30)
-material = ExtResource("4_3qemv")
-
-[node name="Containment1i" type="CSGBox3D" parent="Proto1/Containment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.95)
-layers = 3
-operation = 2
-use_collision = true
-flip_faces = true
-size = Vector3(50.5, 19.95, 29.5)
-material = ExtResource("4_3qemv")
-
-[node name="Door" type="CSGBox3D" parent="Proto1/Containment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.49764, 0.0350037)
-layers = 3
-operation = 2
-use_collision = true
-size = Vector3(5, 5, 0.56)
-material = ExtResource("4_3qemv")
+material = ExtResource("2_b4yvp")

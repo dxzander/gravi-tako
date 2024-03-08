@@ -23,3 +23,7 @@ shader_parameter/parametric_shade = true
 shader_parameter/edge_threshold = 0.5
 shader_parameter/edge_softness = 0.011
 shader_parameter/edge_color = Color(0.560784, 0.560784, 0.560784, 1)
+shader_parameter/use_emission = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/is_metal = false
+shader_parameter/metalness = 1.0
