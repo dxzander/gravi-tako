@@ -11,7 +11,7 @@ var frontOrientation := Vector3.FORWARD
 var rightOrientation := Vector3.RIGHT
 
 var wall_normal := Vector3.UP
-var inertia := Vector3.DOWN
+var inertia := Vector3.UP
 var direction := Vector3.ZERO
 var global_direction := Vector3.ZERO
 var last_global_direction := Vector3.FORWARD

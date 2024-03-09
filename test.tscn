@@ -61,20 +61,21 @@ shader_parameter/linearColorSpace = false
 shader_parameter/color1 = Color(0.431373, 0.0941176, 0.615686, 1)
 shader_parameter/color2 = Color(0.313726, 0.45098, 0.823529, 1)
 shader_parameter/direction = Vector2(1, 1)
-shader_parameter/opacity = 0.5
+shader_parameter/opacity = 0.2
 
 [node name="test" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_diua5")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, -5.2318e-16, -3.02058e-16, -3.02058e-16, -0.866025, 0.5, -5.2318e-16, -0.5, -0.866025, 0, 52.3576, 0)
-shadow_enabled = true
+light_energy = 0.3
+light_indirect_energy = 16.0
 sky_mode = 1
 
 [node name="Amorphous" parent="." instance=ExtResource("1_it4we")]
-transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 2.08165e-12, 24.1582, 80.73)
+transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 3.89139e-06, 68.6705, 145.073)
 up_direction = Vector3(2.08165e-12, -1, 2.08165e-12)
 slide_on_ceiling = false
 floor_constant_speed = false
@@ -151,6 +152,7 @@ radius = 100.0
 material = ExtResource("4_3qemv")
 
 [node name="Inner" type="CSGSphere3D" parent="Proto1"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 layers = 3
 use_collision = true
 flip_faces = true
@@ -160,7 +162,7 @@ material = ExtResource("4_3qemv")
 [node name="Inner Hall" type="CSGPolygon3D" parent="Proto1"]
 layers = 3
 use_collision = true
-polygon = PackedVector2Array(0, 0, 100, 0, 100, 1, 0, 1)
+polygon = PackedVector2Array(10, 2.08165e-12, 200, 2.08165e-12, 200, 1, 10, 1)
 mode = 1
 spin_degrees = 360.0
 spin_sides = 12
@@ -168,7 +170,7 @@ smooth_faces = true
 material = ExtResource("2_y62g7")
 
 [node name="Containment" type="CSGCombiner3D" parent="Proto1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 66.382)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 66.1348, 100.183)
 layers = 3
 operation = 1
 use_collision = true
@@ -211,7 +213,6 @@ layers = 3
 operation = 2
 use_collision = true
 size = Vector3(5, 5, 0.56)
-material = ExtResource("4_3qemv")
 
 [node name="Overlays" type="Control" parent="."]
 layout_mode = 3
@@ -254,5 +255,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.00392157, 0, 0.2, 1)
+
+[node name="}" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.1985, 0)
+light_energy = 0.2
+omni_range = 4096.0
 
 [connection signal="visibility_changed" from="Amorphous" to="Overlays/SubViewportContainer/SubViewport/support" method="_on_amorphous_visibility_changed"]

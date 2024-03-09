@@ -6,24 +6,31 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_668gu"]
 render_priority = 0
 shader = ExtResource("1_hv8sg")
-shader_parameter/shadow_color = Color(0.168627, 0.168627, 0.168627, 1)
+shader_parameter/shadow_color = Color(0.592157, 0.592157, 0.592157, 1)
 shader_parameter/shadow_thickness = 1.0
 
 [resource]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_668gu")
 shader = ExtResource("2_pw1sc")
-shader_parameter/main_color = Color(0.984314, 0.984314, 0.984314, 1)
+shader_parameter/main_color = Color(0.835294, 0.835294, 0.835294, 1)
+shader_parameter/is_glass = false
+shader_parameter/is_metal = true
+shader_parameter/metalness = 0.5
 shader_parameter/roughness = 0.0
 shader_parameter/shade_threshold = 0.0
-shader_parameter/shade_softness = 0.0
-shader_parameter/shade_darkness = 1.0
+shader_parameter/shade_softness = 0.455
+shader_parameter/parametric_shade = true
+shader_parameter/shade_darkness = 0.5
 shader_parameter/shade_color = Color(0.0784314, 0, 0.0784314, 1)
-shader_parameter/parametric_shade = false
-shader_parameter/edge_threshold = 0.5
-shader_parameter/edge_softness = 0.011
+shader_parameter/is_specular = false
+shader_parameter/specular_threshold = 0.5
+shader_parameter/specular_softness = 0.1
+shader_parameter/parametric_specular = true
+shader_parameter/specular_brightness = 0.5
+shader_parameter/specular_color = Color(1, 1, 1, 0.5)
+shader_parameter/edge_threshold = 0.197
+shader_parameter/edge_softness = 0.151
 shader_parameter/edge_color = Color(0.407843, 0.552941, 0.768627, 1)
-shader_parameter/use_emission = false
+shader_parameter/is_emitting = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
-shader_parameter/is_metal = true
-shader_parameter/metalness = 0.1
