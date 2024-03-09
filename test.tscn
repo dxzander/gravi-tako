@@ -1,13 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://1uph104a2d2v"]
+[gd_scene load_steps=20 format=3 uid="uid://1uph104a2d2v"]
 
 [ext_resource type="PackedScene" uid="uid://bxejyvi3ta8mf" path="res://Amorphous2.tscn" id="1_it4we"]
 [ext_resource type="Material" uid="uid://ccsct3of4f1va" path="res://concrete.tres" id="2_y62g7"]
 [ext_resource type="Shader" path="res://Overlay Mixes.gdshader" id="3_hxu42"]
 [ext_resource type="Material" uid="uid://dcckxpuwf62hd" path="res://scifiwhite.tres" id="4_3qemv"]
+[ext_resource type="Script" path="res://support_cam.gd" id="4_m6wca"]
+[ext_resource type="Shader" path="res://xrays.gdshader" id="5_ph7dh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bdy1o"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
 [sub_resource type="Sky" id="Sky_sfibf"]
 sky_material = SubResource("ProceduralSkyMaterial_bdy1o")
@@ -38,15 +38,6 @@ data = PackedVector3Array(0, 0.5, 0, 0, 0.5, 0, 0, 0.4977, 0.0475, 0, 0.5, 0, 0.
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ofn2o"]
 data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yljk8"]
-shader = ExtResource("3_hxu42")
-shader_parameter/mode = 2
-shader_parameter/linearColorSpace = false
-shader_parameter/color1 = Color(0.431373, 0.0941176, 0.615686, 1)
-shader_parameter/color2 = Color(0.313726, 0.45098, 0.823529, 1)
-shader_parameter/direction = Vector2(1, 1)
-shader_parameter/opacity = 0.5
-
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1dbar"]
 radius = 30.0
 height = 100.0
@@ -59,6 +50,19 @@ height = 101.0
 [sub_resource type="BoxMesh" id="BoxMesh_iyjon"]
 size = Vector3(5, 5, 2)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nf4l7"]
+shader = ExtResource("5_ph7dh")
+shader_parameter/main_color = Color(0.180392, 0.133333, 0.219608, 0.47451)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yljk8"]
+shader = ExtResource("3_hxu42")
+shader_parameter/mode = 2
+shader_parameter/linearColorSpace = false
+shader_parameter/color1 = Color(0.431373, 0.0941176, 0.615686, 1)
+shader_parameter/color2 = Color(0.313726, 0.45098, 0.823529, 1)
+shader_parameter/direction = Vector2(1, 1)
+shader_parameter/opacity = 0.5
+
 [node name="test" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -70,7 +74,10 @@ shadow_enabled = true
 sky_mode = 1
 
 [node name="Amorphous" parent="." instance=ExtResource("1_it4we")]
-transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 0, 15, 80.73)
+transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 2.08165e-12, 24.1582, 80.73)
+up_direction = Vector3(2.08165e-12, -1, 2.08165e-12)
+slide_on_ceiling = false
+floor_constant_speed = false
 
 [node name="Original" type="Node3D" parent="."]
 process_mode = 4
@@ -109,24 +116,6 @@ surface_material_override/0 = ExtResource("2_y62g7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Original/Floor2/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_ofn2o")
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="Control"]
-material = SubResource("ShaderMaterial_yljk8")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.00392157, 0, 0.2, 1)
 
 [node name="Test1" type="Node3D" parent="."]
 process_mode = 4
@@ -169,6 +158,7 @@ radius = 100.0
 material = ExtResource("4_3qemv")
 
 [node name="Inner Hall" type="CSGPolygon3D" parent="Proto1"]
+layers = 3
 use_collision = true
 polygon = PackedVector2Array(0, 0, 100, 0, 100, 1, 0, 1)
 mode = 1
@@ -179,6 +169,7 @@ material = ExtResource("2_y62g7")
 
 [node name="Containment" type="CSGCombiner3D" parent="Proto1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 66.382)
+layers = 3
 operation = 1
 use_collision = true
 
@@ -195,7 +186,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.05)
 layers = 3
 operation = 2
 use_collision = true
-flip_faces = true
 size = Vector3(49.5, 19.95, 29.5)
 material = ExtResource("4_3qemv")
 
@@ -212,7 +202,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.95)
 layers = 3
 operation = 2
 use_collision = true
-flip_faces = true
 size = Vector3(50.5, 19.95, 29.5)
 material = ExtResource("4_3qemv")
 
@@ -223,3 +212,47 @@ operation = 2
 use_collision = true
 size = Vector3(5, 5, 0.56)
 material = ExtResource("4_3qemv")
+
+[node name="Overlays" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Overlays"]
+light_mask = 4
+visibility_layer = 4
+material = SubResource("ShaderMaterial_nf4l7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Overlays/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="support" type="Camera3D" parent="Overlays/SubViewportContainer/SubViewport" node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.4852, 85.2528)
+cull_mask = 1047556
+script = ExtResource("4_m6wca")
+player = NodePath("../../../../Amorphous")
+
+[node name="ColorRect" type="ColorRect" parent="Overlays"]
+material = SubResource("ShaderMaterial_yljk8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.00392157, 0, 0.2, 1)
+
+[connection signal="visibility_changed" from="Amorphous" to="Overlays/SubViewportContainer/SubViewport/support" method="_on_amorphous_visibility_changed"]

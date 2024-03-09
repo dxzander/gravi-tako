@@ -32,15 +32,17 @@ var lerpedTar := Vector3.ZERO
 
 func _on_ready():
 	#set_floor_block_on_wall_enabled(false)
-	#set_max_slides(0)
+	update_directions()
+	set_up_direction(upOrientation)
+	JUMP_DIR = upOrientation
+	inertia = -upOrientation
+	wall_normal = upOrientation
 	pass
 
 func _physics_process(delta):
 	# for debugging
 	#rotate(Vector3(0.0, 0.0, 1.0), 0.01)
-	#rotate(Vector3(0.0, 1.0, 0.0), 0.01)
-	
-	#print(is_on_wall())
+	#print(upOrientation)
 	
 	if Input.is_action_just_pressed("db_up"):
 		print("db_up")
@@ -93,14 +95,6 @@ func _physics_process(delta):
 		input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized()
 		
 		# transform input based on camera
-		#cam_basis = $Reticle.global_transform.basis.rotated($Reticle.global_transform.basis.x, $Reticle.global_transform.basis.z.angle_to(global_transform.basis.z))
-		#var angel = global_transform.basis.y.angle_to($Reticle.global_transform.basis.y)
-		#if angel < deg_to_rad(45):
-			#print("hewwo")
-			#cam_basis = $Reticle.global_transform.basis
-		#else:
-			#cam_basis = transform.basis
-		
 		cam_basis = $Camera.global_transform.basis
 		direction = cam_basis * Vector3(input_dir.x, 0, input_dir.y)
 		global_direction = direction * global_basis
@@ -116,8 +110,11 @@ func _physics_process(delta):
 		inertia = -wall_normal
 		#inertia = (previous_position - position).normalized() #for later
 		changed = false
-	elif is_on_wall():
-		wall_normal = get_wall_normal()
+	elif is_on_wall() or is_on_ceiling():
+		if is_on_wall():
+			wall_normal = get_wall_normal()
+		if is_on_ceiling():
+			wall_normal = -get_up_direction()
 		inertia = -wall_normal
 		velocity = inertia * SPEED
 		changed = true
@@ -126,7 +123,7 @@ func _physics_process(delta):
 		velocity = inertia * SPEED
 		pass
 	
-	# apply whatever rotation
+	# apply whatever rotation and translation was calculated
 	# handle rotation
 	### THIS IS THE GOOD ONE
 	if global_direction.length() == 1.0 or changed:
@@ -138,12 +135,10 @@ func _physics_process(delta):
 	transform.basis = lerp(transform.basis, target_basis, inter_speed * delta).orthonormalized()
 	
 	# update variables
-	upOrientation = global_position.direction_to($Up.global_transform.origin).normalized()
-	frontOrientation = global_position.direction_to($Front.global_transform.origin).normalized()
-	rightOrientation = global_position.direction_to($Right.global_transform.origin).normalized()
+	update_directions()
+	set_up_direction(wall_normal)
 	
 	# apply whatever movement was calculated
-	set_up_direction(wall_normal)
 	previous_position = position
 	velocity *= delta
 	move_and_slide()
@@ -176,3 +171,12 @@ func is_close_enough(a: Vector3, b: Vector3) -> bool:
 	if a.is_equal_approx(b) and b.is_equal_approx(a):
 		is_it = true
 	return is_it
+
+func update_directions() -> void:
+	upOrientation = global_position.direction_to($Up.global_transform.origin).normalized()
+	frontOrientation = global_position.direction_to($Front.global_transform.origin).normalized()
+	rightOrientation = global_position.direction_to($Right.global_transform.origin).normalized()
+	pass
+
+func get_cam_global_transform() -> Transform3D:
+	return $Camera/Cam.global_transform

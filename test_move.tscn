@@ -97,7 +97,6 @@ sky_mode = 1
 
 [node name="Amorphous" parent="." instance=ExtResource("1_8y6y7")]
 transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 2.08165e-12, 1, 2.08165e-12)
-motion_mode = 0
 safe_margin = 0.2
 
 [node name="Original" type="Node3D" parent="."]
