@@ -1,7 +1,8 @@
 extends CharacterBody3D
 
-var SPEED := 10.0
-var rotation_speed := 4.0
+var SPEED: float = 1000.0
+var inter_speed: float = 10.0
+var rotation_speed: float = 4.0
 var JUMP_DIR := Vector3.UP
 var input_dir := Vector2.ZERO
 
@@ -14,6 +15,7 @@ var inertia := Vector3.DOWN
 var direction := Vector3.ZERO
 var global_direction := Vector3.ZERO
 var last_global_direction := Vector3.FORWARD
+var changed: bool = false
 
 var target_basis := Basis()
 var cam_basis := Basis()
@@ -29,7 +31,7 @@ var lerpedTar := Vector3.ZERO
 @onready var br_leg: Node3D = $Marks/MarkBR
 
 func _on_ready():
-	set_floor_block_on_wall_enabled(false)
+	#set_floor_block_on_wall_enabled(false)
 	#set_max_slides(0)
 	pass
 
@@ -38,7 +40,7 @@ func _physics_process(delta):
 	#rotate(Vector3(0.0, 0.0, 1.0), 0.01)
 	#rotate(Vector3(0.0, 1.0, 0.0), 0.01)
 	
-	print(is_on_wall())
+	#print(is_on_wall())
 	
 	if Input.is_action_just_pressed("db_up"):
 		print("db_up")
@@ -78,17 +80,13 @@ func _physics_process(delta):
 		global_direction = Vector3.ZERO
 		$Dir.position = global_direction
 	
-	#print("normal: " + str(wall_normal))
-	#print("direcion: " + str(global_direction))
-	#print(get_real_velocity())
-	
 	# handle movement
-	if Input.is_action_just_pressed("ui_accept") and is_on_wall():
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		# jump takes priority
 		JUMP_DIR = upOrientation + direction
 		velocity = JUMP_DIR * SPEED
 		inertia = JUMP_DIR
-	elif is_on_wall():
+	elif is_on_floor():
 		# movement while "grounded"
 		
 		# get input
@@ -96,57 +94,48 @@ func _physics_process(delta):
 		
 		# transform input based on camera
 		#cam_basis = $Reticle.global_transform.basis.rotated($Reticle.global_transform.basis.x, $Reticle.global_transform.basis.z.angle_to(global_transform.basis.z))
-		cam_basis = $Reticle.global_transform.basis
-		direction = (cam_basis * Vector3(input_dir.x, 0, input_dir.y))
-		#direction = $Front.global_position.normalized() * -input_dir.y
+		#var angel = global_transform.basis.y.angle_to($Reticle.global_transform.basis.y)
+		#if angel < deg_to_rad(45):
+			#print("hewwo")
+			#cam_basis = $Reticle.global_transform.basis
+		#else:
+			#cam_basis = transform.basis
+		
+		cam_basis = $Camera.global_transform.basis
+		direction = cam_basis * Vector3(input_dir.x, 0, input_dir.y)
 		global_direction = direction * global_basis
-		#print(cam_basis)
-		
-		#var a = transform.basis.z.angle_to($Reticle.transform.origin)
-		#var b = PI - a
-		#print("z: " + str(transform.basis.z))
-		#print("x: " + str(transform.basis.x))
-		
-		#direction = direction.rotated(transform.basis.x, -a)
-		#direction = Vector3(direction.x, 0, direction.z).normalized()
-		#global_direction = Vector3(global_direction.x, 0, global_direction.z).normalized()
+		global_direction = Vector3(global_direction.x, 0, global_direction.z).normalized()
 		
 		# set direction marker position 
 		if global_direction.length() == 1.0:
 			$Dir.position = global_direction
-		#velocity = direction.rotated($Camera.global_transform.basis.x, direction.signed_angle_to(global_direction, $Camera.global_transform.basis.x)) * SPEED
-		#velocity = direction * SPEED
-		#velocity = global_position.direction_to($Dir.global_position).normalized() * direction * SPEED
-		#print(velocity)
+		velocity = (direction + inertia) * SPEED
 		
 		# get wall orientation
-		wall_normal = get_wall_normal()
-		#print(wall_normal)
+		wall_normal = get_floor_normal()
 		inertia = -wall_normal
 		#inertia = (previous_position - position).normalized() #for later
+		changed = false
+	elif is_on_wall():
+		wall_normal = get_wall_normal()
+		inertia = -wall_normal
+		velocity = inertia * SPEED
+		changed = true
 	else:
-		#if global_direction.length() == 1.0:
-			#$Dir.position = global_direction
 		# intertial movement
 		velocity = inertia * SPEED
 		pass
 	
-	
-	
 	# apply whatever rotation
 	# handle rotation
 	### THIS IS THE GOOD ONE
-	if global_direction.length() == 1.0:
-		#last_global_direction = $Dir.global_transform.origin
+	if global_direction.length() == 1.0 or changed:
 		target_basis = transform.looking_at($Dir.global_transform.origin, wall_normal).basis.orthonormalized()
-		#target_basis = transform.looking_at(frontOrientation, wall_normal).basis.orthonormalized()
 	else:
 		target_basis = _basis_from_normal(wall_normal)
 		pass
-	
-	#target_basis = transform.looking_at(last_global_direction, wall_normal).basis.orthonormalized()
-	#target_basis = _basis_from_normal(wall_normal)
-	transform.basis = lerp(transform.basis, target_basis, SPEED * delta).orthonormalized()
+		
+	transform.basis = lerp(transform.basis, target_basis, inter_speed * delta).orthonormalized()
 	
 	# update variables
 	upOrientation = global_position.direction_to($Up.global_transform.origin).normalized()
@@ -156,13 +145,8 @@ func _physics_process(delta):
 	# apply whatever movement was calculated
 	set_up_direction(wall_normal)
 	previous_position = position
-	#translate((inertia + direction) * SPEED * delta)
+	velocity *= delta
 	move_and_slide()
-	#rotate_object_local(Vector3.UP, -input_dir.x * rotation_speed * delta)
-	
-	#print("direction: " + str(direction))
-	#print("x: " + str(transform.basis.x))
-	#print("z: " + str(transform.basis.z))
 	
 	pass
 

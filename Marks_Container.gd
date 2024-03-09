@@ -2,8 +2,8 @@ extends Node3D
 
 @export var offset: float = 15.0
 
-@onready var parent = get_parent_node_3d()
-@onready var previous_position = parent.global_position
+@onready var parent := get_parent_node_3d()
+@onready var previous_position := parent.global_position
 
 func _process(delta):
 	var parent_current_position = parent.global_position

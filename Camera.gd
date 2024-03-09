@@ -1,10 +1,10 @@
 extends Node3D
 
-var rotation_speed = 0.1
-var curTar = Vector3(0, 0, 0)
-var realTar = Vector3(0, 0, 0)
-var lerpedTar = Vector3(0, 0, 0)
-var cam_default_position = Vector3(0,11,22)
+var rotation_speed: float = 0.1
+var curTar := Vector3(0, 0, 0)
+var realTar := Vector3(0, 0, 0)
+var lerpedTar := Vector3(0, 0, 0)
+var cam_default_position := Vector3(0,11,22)
 
 @export var target = Node3D
 @export var player = Node3D
@@ -23,6 +23,6 @@ func _physics_process(delta):
 	curTar = lerpedTar
 	if $RayCam.is_colliding():
 		#print($RayCam.get_collision_point())
-		$Cam.global_position = $RayCam.get_collision_point() - cam_default_position.normalized()
+		$Cam.global_position = $RayCam.get_collision_point() * 0.9
 	else:
 		$Cam.position = cam_default_position
