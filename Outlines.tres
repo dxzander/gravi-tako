@@ -1,0 +1,37 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://x7o326alfios"]
+
+[ext_resource type="Shader" path="res://outline.gdshader" id="1_n11vy"]
+[ext_resource type="Shader" path="res://cell_shader.gdshader" id="2_fariq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t4104"]
+render_priority = 0
+shader = ExtResource("1_n11vy")
+shader_parameter/outline_color = Color(0.180392, 0.133333, 0.219608, 1)
+shader_parameter/outline_width = 2.0
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_t4104")
+shader = ExtResource("2_fariq")
+shader_parameter/main_color = Color(0.878431, 0.843137, 0.933333, 1)
+shader_parameter/is_glass = false
+shader_parameter/is_metal = false
+shader_parameter/metalness = 1.0
+shader_parameter/roughness = 0.0
+shader_parameter/shade_threshold = 0.135
+shader_parameter/shade_softness = 0.1
+shader_parameter/parametric_shade = false
+shader_parameter/shade_darkness = 0.5
+shader_parameter/shade_color = Color(0.490196, 0.439216, 0.537255, 1)
+shader_parameter/is_specular = true
+shader_parameter/specular_threshold = 0.197
+shader_parameter/specular_softness = 0.1
+shader_parameter/parametric_specular = false
+shader_parameter/specular_brightness = 0.5
+shader_parameter/specular_color = Color(0.984314, 0.698039, 0.439216, 1)
+shader_parameter/edge_threshold = 0.1
+shader_parameter/edge_softness = 0.05
+shader_parameter/edge_color = Color(0.984314, 0.698039, 0.439216, 1)
+shader_parameter/is_emitting = false
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/emission_energy = 1.0
