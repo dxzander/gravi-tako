@@ -7,7 +7,7 @@
 render_priority = 0
 shader = ExtResource("1_f20qp")
 shader_parameter/outline_color = Color(0.54902, 0.32549, 0.0196078, 1)
-shader_parameter/outline_width = 2.0
+shader_parameter/outline_width = 5.0
 
 [resource]
 render_priority = 0
