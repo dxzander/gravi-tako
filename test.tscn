@@ -825,7 +825,7 @@ light_energy = 0.2
 omni_range = 4096.0
 
 [node name="Siren" type="OmniLight3D" parent="."]
-transform = Transform3D(0.666584, -0.74543, 0, 0.74543, 0.666584, 0, 0, 0, 1, -71.1401, 49.8752, 0)
+transform = Transform3D(0.666584, -0.74543, 0, 0.74543, 0.666584, 0, 0, 0, 1, -72.1498, 49.7053, -3.60334)
 light_color = Color(1, 0, 0, 1)
 omni_range = 16.211
 script = ExtResource("1_tlg48")

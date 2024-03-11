@@ -38,6 +38,8 @@ func _physics_process(delta):
 	# for debugging
 	#rotate(Vector3(0.0, 0.0, 1.0), 0.01)
 	#print(upOrientation)
+	if up_direction == Vector3.ZERO:
+		up_direction = Vector3.UP
 	
 	if Input.is_action_just_pressed("db_up"):
 		print("db_up")
@@ -76,6 +78,11 @@ func _physics_process(delta):
 		transform.basis = Basis()
 		global_direction = Vector3.ZERO
 		$Dir.position = global_direction
+		up_direction = Vector3.UP
+		wall_normal = up_direction
+		inertia = -up_direction
+		direction = Vector3.ZERO
+		changed = true
 	
 	# handle movement
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():

@@ -1,7 +1,8 @@
 extends Node3D
 
 var rotation_speed: float = 0.025
-var max_angle: float = deg_to_rad(-20.0)
+var max_top_angle: float = deg_to_rad(-170.0)
+var max_bot_angle: float = deg_to_rad(-20.0)
 #var max_angle: float = 80.0
 var input_dir := Vector2.ZERO
 
@@ -30,21 +31,14 @@ func _physics_process(delta):
 	rotate(player.get_up(), rotation_speed * input_dir.x)
 	
 	# vertical rotation
-	#curRotVer = get_rotation_degrees().x
-	#print(curRotVer)
-	#if curRotVer <= max_angle and curRotVer >= -max_angle:
-		##rotate($"../Camera".global_transform.basis.x, rotation_speed * input_dir.y)
-		#rotate($"../Camera".global_transform.basis.x, rotation_speed * input_dir.y)
-	#else:
-		#set_rotation_degrees(Vector3((curRotVer / abs(curRotVer)) * max_angle, get_rotation_degrees().y, get_rotation_degrees().z))
-	#pass
-	
 	curFront = basis.z
 	curRotVer = curFront.signed_angle_to(player.get_up(), $"../Camera".global_transform.basis.x)
-	print(curRotVer)
-	if curRotVer < max_angle and curRotVer > (-PI - max_angle):
-		#rotate($"../Camera".global_transform.basis.x, rotation_speed * input_dir.y)
+	if curRotVer < max_top_angle: #too above
+		if input_dir.y < 0:
+			rotate($"../Camera".global_transform.basis.x, rotation_speed * input_dir.y)
+	elif curRotVer > max_bot_angle: #too below
+		if input_dir.y > 0:
+			rotate($"../Camera".global_transform.basis.x, rotation_speed * input_dir.y)
+	else: #perfect
 		rotate($"../Camera".global_transform.basis.x, rotation_speed * input_dir.y)
-	else:
-		set_rotation(Vector3((curRotVer / abs(curRotVer)) * max_angle, basis.y, basis.z))
 	pass
