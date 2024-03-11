@@ -10,8 +10,8 @@ var upOrientation := Vector3.UP
 var frontOrientation := Vector3.FORWARD
 var rightOrientation := Vector3.RIGHT
 
-var wall_normal := Vector3.UP
-var inertia := Vector3.UP
+var wall_normal := Vector3(-1.0, 1.0, 0.0).normalized()
+var inertia := Vector3(-1.0, 1.0, 0.0).normalized()
 var direction := Vector3.ZERO
 var global_direction := Vector3.ZERO
 var last_global_direction := Vector3.FORWARD
@@ -143,6 +143,7 @@ func _physics_process(delta):
 	velocity *= delta
 	move_and_slide()
 	
+	print(wall_normal)
 	pass
 
 func get_up() -> Vector3:
