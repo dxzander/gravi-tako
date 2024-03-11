@@ -80,6 +80,7 @@ shader_parameter/color1 = Color(0.431373, 0.0941176, 0.615686, 1)
 shader_parameter/color2 = Color(0.313726, 0.45098, 0.823529, 1)
 shader_parameter/direction = Vector2(1, 1)
 shader_parameter/opacity = 0.5
+shader_parameter/color = 0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1dbar"]
 radius = 30.0

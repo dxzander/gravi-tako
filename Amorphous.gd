@@ -1,21 +1,20 @@
 extends CharacterBody3D
 
-var SPEED: float = 1000.0
+var SPEED: float = 1000.0 * 2
 var inter_speed: float = 10.0
 var rotation_speed: float = 4.0
-var JUMP_DIR := Vector3.UP
+var JUMP_DIR := up_direction
 var input_dir := Vector2.ZERO
 
 var upOrientation := Vector3.UP
 var frontOrientation := Vector3.FORWARD
 var rightOrientation := Vector3.RIGHT
 
-var wall_normal := Vector3(-1.0, 1.0, 0.0).normalized()
-var inertia := Vector3(-1.0, 1.0, 0.0).normalized()
-var direction := Vector3.ZERO
-var global_direction := Vector3.ZERO
-var last_global_direction := Vector3.FORWARD
-var changed: bool = false
+@onready var wall_normal := up_direction.normalized()
+@onready var inertia := -up_direction.normalized()
+@onready var direction := Vector3.ZERO
+@onready var global_direction := Vector3.ZERO
+@onready var changed: bool = true
 
 var target_basis := Basis()
 var cam_basis := Basis()
@@ -33,10 +32,6 @@ var lerpedTar := Vector3.ZERO
 func _on_ready():
 	#set_floor_block_on_wall_enabled(false)
 	update_directions()
-	set_up_direction(upOrientation)
-	JUMP_DIR = upOrientation
-	inertia = -upOrientation
-	wall_normal = upOrientation
 	pass
 
 func _physics_process(delta):
@@ -86,8 +81,8 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		# jump takes priority
 		JUMP_DIR = upOrientation + direction
-		velocity = JUMP_DIR * SPEED
 		inertia = JUMP_DIR
+		velocity = inertia * SPEED
 	elif is_on_floor():
 		# movement while "grounded"
 		
@@ -108,7 +103,6 @@ func _physics_process(delta):
 		# get wall orientation
 		wall_normal = get_floor_normal()
 		inertia = -wall_normal
-		#inertia = (previous_position - position).normalized() #for later
 		changed = false
 	elif is_on_wall() or is_on_ceiling():
 		if is_on_wall():
@@ -139,11 +133,9 @@ func _physics_process(delta):
 	set_up_direction(wall_normal)
 	
 	# apply whatever movement was calculated
-	previous_position = position
 	velocity *= delta
 	move_and_slide()
 	
-	print(wall_normal)
 	pass
 
 func get_up() -> Vector3:
