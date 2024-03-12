@@ -1,7 +1,4 @@
-extends OmniLight3D
-
-var time: float = 0.0
-var time_inc: float = 0.1
+extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -10,7 +7,5 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	light_energy = sin(time * delta)
-	#print(light_energy)
-	time += time_inc
+	rotate_object_local(Vector3(0.0, 1.0, 0.0), 0.1)
 	pass

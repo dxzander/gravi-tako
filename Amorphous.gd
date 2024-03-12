@@ -19,16 +19,6 @@ var rightOrientation := Vector3.RIGHT
 var target_basis := Basis()
 var cam_basis := Basis()
 
-var curTar := Vector3.ZERO
-var realTar := Vector3.ZERO
-var lerpedTar := Vector3.ZERO
-
-@onready var previous_position: Vector3 = position
-@onready var fl_leg: Node3D = $Marks/MarkFL
-@onready var fr_leg: Node3D = $Marks/MarkFR
-@onready var bl_leg: Node3D = $Marks/MarkBL
-@onready var br_leg: Node3D = $Marks/MarkBR
-
 func _on_ready():
 	#set_floor_block_on_wall_enabled(false)
 	update_directions()
@@ -37,7 +27,6 @@ func _on_ready():
 func _physics_process(delta):
 	# for debugging
 	#rotate(Vector3(0.0, 0.0, 1.0), 0.01)
-	#print(upOrientation)
 	if up_direction == Vector3.ZERO:
 		up_direction = Vector3.UP
 	
@@ -75,14 +64,7 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("db_zero"):
 		print("db_zero")
-		transform.basis = Basis()
-		global_direction = Vector3.ZERO
-		$Dir.position = global_direction
-		up_direction = Vector3.UP
-		wall_normal = up_direction
-		inertia = -up_direction
-		direction = Vector3.ZERO
-		changed = true
+		reset()
 	
 	# handle movement
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
@@ -180,3 +162,14 @@ func update_directions() -> void:
 
 func get_cam_global_transform() -> Transform3D:
 	return $Camera/Cam.global_transform
+
+func reset() -> void:
+	transform.basis = Basis()
+	global_direction = Vector3.ZERO
+	$Dir.position = global_direction
+	up_direction = Vector3.UP
+	wall_normal = up_direction
+	inertia = -up_direction
+	direction = Vector3.ZERO
+	changed = true
+	pass
