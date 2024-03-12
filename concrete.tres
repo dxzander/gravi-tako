@@ -6,7 +6,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_668gu"]
 render_priority = 0
 shader = ExtResource("1_vrjjq")
-shader_parameter/outline_color = Color(0.466667, 0.466667, 0.466667, 1)
+shader_parameter/outline_color = Color(0.239216, 0.239216, 0.239216, 1)
 shader_parameter/outline_width = 5.0
 
 [resource]
