@@ -1,0 +1,21 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://8f85y4asiu44"]
+
+[ext_resource type="FontFile" uid="uid://bopgbyci1l1cf" path="res://Traffic.ttf" id="1_b8oob"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_r2ve4"]
+color = Color(0.878431, 0.843137, 0.933333, 1)
+grow_begin = -50.0
+grow_end = -50.0
+thickness = 3
+
+[resource]
+Button/colors/font_color = Color(0.878431, 0.843137, 0.933333, 1)
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_b8oob")
+HSeparator/constants/separation = 40
+HSeparator/styles/separator = SubResource("StyleBoxLine_r2ve4")
+Label/colors/font_color = Color(0.490196, 0.439216, 0.537255, 1)
+Label/font_sizes/font_size = 56
+Label/fonts/font = ExtResource("1_b8oob")
+MarginContainer/constants/margin_left = 50
+MarginContainer/constants/margin_right = 50
