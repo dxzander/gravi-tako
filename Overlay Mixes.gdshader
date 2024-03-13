@@ -17,7 +17,7 @@ uniform vec4 color2 :source_color = vec4(0.4, 0.8, 1, 1);
 uniform vec2 direction = vec2(1.0, 1.0);
 uniform float opacity :hint_range(0, 1) = 0.5;
 
-uniform int color :hint_range(0,7) = 0;
+uniform int color :hint_range(0,8) = 0;
 
 const vec3 white = vec3(0.867, 0.867, 0.867);
 const vec3 blue = vec3(0.043, 0, 0.2);
@@ -69,7 +69,7 @@ void fragment(){
 	} else if (color == 7) { // none
 		grad1 = none;
 		grad2 = none;
-	}
+	} // 8 is for using the values in the interface
 	
 	vec3 c_a = src.rgb;
 	vec3 c_f;

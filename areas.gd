@@ -15,33 +15,33 @@ func colorize(n: int) -> void:
 	pass
 
 func _on_start_body_entered(body):
-	colorize(0)
+	#colorize(0)
 	pass # Replace with function body.
 
 func _on_up_body_entered(body):
-	colorize(1)
+	#colorize(1)
 	pass # Replace with function body.
 
 func _on_down_body_entered(body):
-	colorize(2)
+	#colorize(2)
 	pass # Replace with function body.
 
 func _on_left_body_entered(body):
-	colorize(3)
+	#colorize(3)
 	pass # Replace with function body.
 
 func _on_right_body_entered(body):
-	colorize(4)
+	#colorize(4)
 	pass # Replace with function body.
 
 func _on_front_body_entered(body):
-	colorize(5)
+	#colorize(5)
 	pass # Replace with function body.
 
 func _on_back_body_entered(body):
-	colorize(6)
+	#colorize(6)
 	pass # Replace with function body.
 
 func _on_halls_body_entered(body):
-	colorize(7)
+	#colorize(7)
 	pass # Replace with function body.
