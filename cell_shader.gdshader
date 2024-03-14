@@ -65,9 +65,9 @@ void fragment() {
 	
 	if (is_glass) {
 		// glass
-		float a = mix(0.001, 1.0, fresnel);
-		ALBEDO = mix(edge_color.rgb * edge_color.a, _main.rgb, a) + _main.rgb;
-		ALPHA = mix(fresnel * edge_color.a, 1.0, a) * _main.a;
+		float a = mix(0.1, 1.0, fresnel);
+		ALBEDO = mix(edge_color.rgb * edge_color.a, _main.rgb, a);
+		ALPHA = mix(fresnel * edge_color.a, 1.0, a);
 	} else {
 		// normal toon
 		float a = smoothstep(edge_threshold - edge_softness, edge_threshold + edge_softness, fresnel);

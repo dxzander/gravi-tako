@@ -12,6 +12,7 @@ func _ready():
 	$"Menu/Menu/MarginContainer/VBoxContainer/Menu/Pause-Start".grab_focus()
 	var resolution = DisplayServer.screen_get_size()
 	get_tree().root.set_size(resolution)
+	AudioServer.set_bus_volume_db(0, linear_to_db(0.5))
 	pass
 
 func _process(delta):
@@ -73,16 +74,16 @@ func _on_scale_pressed():
 		var resolution = DisplayServer.screen_get_size()
 		get_tree().root.set_size(resolution / 2)
 		get_tree().root.set_content_scale_mode(Window.CONTENT_SCALE_MODE_VIEWPORT)
-		get_tree().root.set_mode(Window.MODE_WINDOWED)
+		RenderingServer.global_shader_parameter_set('outline_width', 3.0)
+		#get_tree().root.set_mode(Window.MODE_WINDOWED)
 		res_changed()
-		#half_res = true
 	else:
 		var resolution = DisplayServer.screen_get_size()
 		get_tree().root.set_size(resolution)
 		get_tree().root.set_content_scale_mode(Window.CONTENT_SCALE_MODE_DISABLED)
-		get_tree().root.set_mode(Window.MODE_WINDOWED)
+		RenderingServer.global_shader_parameter_set('outline_width', 6.0)
+		#get_tree().root.set_mode(Window.MODE_WINDOWED)
 		res_changed()
-		#half_res = false
 	pass
 
 func res_changed() -> void:
@@ -90,4 +91,19 @@ func res_changed() -> void:
 		get_tree().root.set_mode(Window.MODE_FULLSCREEN)
 	else:
 		get_tree().root.set_mode(Window.MODE_MAXIMIZED)
+	pass
+
+
+func _on_cam_slider_value_changed(value):
+	Globals.sensibility_modifier = value
+	pass
+
+
+func _on_vol_slider_value_changed(value):
+	AudioServer.set_bus_volume_db(0, linear_to_db(value))
+	pass
+
+
+func _on_button_pressed():
+	get_tree().quit()
 	pass

@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
+[autoload]
+
+Globals="*res://globals.gd"
+
 [display]
 
 window/size/viewport_width=1920
@@ -166,3 +170,14 @@ Pause={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=2
+
+[shader_globals]
+
+shadow_thickness={
+"type": "float",
+"value": 6.0
+}
+outline_width={
+"type": "float",
+"value": 6.0
+}

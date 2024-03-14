@@ -1,6 +1,5 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dcckxpuwf62hd"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dcckxpuwf62hd"]
 
-[ext_resource type="Texture2D" uid="uid://b5nk3ov0dwtil" path="res://Level_Palette.png" id="2_hddr4"]
 [ext_resource type="Shader" path="res://cell_shader.gdshader" id="2_pw1sc"]
 
 [resource]
@@ -28,4 +27,3 @@ shader_parameter/edge_color = Color(0.866667, 0.866667, 0.866667, 1)
 shader_parameter/is_emitting = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/emission_energy = 0.05
-shader_parameter/main_texture = ExtResource("2_hddr4")

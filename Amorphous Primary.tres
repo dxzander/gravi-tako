@@ -6,8 +6,9 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hc82o"]
 render_priority = 0
 shader = ExtResource("1_pr0my")
-shader_parameter/outline_color = Color(0.870588, 0.827451, 0.909804, 1)
-shader_parameter/outline_width = 5.0
+shader_parameter/outline_color = Color(0.176471, 0.121569, 0.223529, 1)
+shader_parameter/use_global = true
+shader_parameter/outline_width_local = 1.0
 
 [resource]
 render_priority = 0

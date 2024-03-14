@@ -122,11 +122,10 @@ text = "Volume: "
 
 [node name="VolSlider" type="HSlider" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu/Sound"]
 layout_mode = 2
-min_value = 1.0
-max_value = 19.0
-value = 10.0
-rounded = true
-tick_count = 19
+max_value = 1.0
+step = 0.01
+value = 0.5
+tick_count = 11
 ticks_on_borders = true
 
 [node name="Controls" type="VBoxContainer" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu"]
@@ -140,11 +139,11 @@ text = "Cam. Sensibility: "
 
 [node name="CamSlider" type="HSlider" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu/Controls"]
 layout_mode = 2
-min_value = 1.0
-max_value = 19.0
-value = 10.0
-rounded = true
-tick_count = 19
+min_value = 0.1
+max_value = 1.9
+step = 0.1
+value = 1.0
+tick_count = 11
 ticks_on_borders = true
 
 [node name="Window Mode" type="CheckButton" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu"]
@@ -165,6 +164,11 @@ layout_mode = 2
 theme = ExtResource("1_sy1d3")
 action_mode = 0
 text = "Back to menu"
+
+[node name="Button" type="Button" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu"]
+layout_mode = 2
+action_mode = 0
+text = "Exit game"
 
 [node name="Credits" type="VBoxContainer" parent="Menu/Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -204,6 +208,9 @@ mouse_filter = 2
 color = Color(0.156863, 0.141176, 0.129412, 1)
 
 [connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Pause-Start" to="." method="_on_pause_start_pressed"]
+[connection signal="value_changed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Sound/VolSlider" to="." method="_on_vol_slider_value_changed"]
+[connection signal="value_changed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Controls/CamSlider" to="." method="_on_cam_slider_value_changed"]
 [connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Window Mode" to="." method="_on_window_mode_pressed"]
 [connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Scale" to="." method="_on_scale_pressed"]
 [connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Button" to="." method="_on_button_pressed"]

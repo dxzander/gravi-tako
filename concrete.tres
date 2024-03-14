@@ -1,17 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://ccsct3of4f1va"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ccsct3of4f1va"]
 
-[ext_resource type="Shader" path="res://outline.gdshader" id="1_vrjjq"]
 [ext_resource type="Shader" path="res://cell_shader.gdshader" id="2_rjik5"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_668gu"]
-render_priority = 0
-shader = ExtResource("1_vrjjq")
-shader_parameter/outline_color = Color(0.239216, 0.239216, 0.239216, 1)
-shader_parameter/outline_width = 5.0
 
 [resource]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_668gu")
 shader = ExtResource("2_rjik5")
 shader_parameter/main_color = Color(0.541176, 0.541176, 0.541176, 1)
 shader_parameter/is_glass = false
