@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ft3kd5aq2k5x"]
+[gd_scene load_steps=9 format=3 uid="uid://ft3kd5aq2k5x"]
 
 [ext_resource type="PackedScene" uid="uid://c3ke0puhchryw" path="res://tako_menu.tscn" id="1_ht6b6"]
 [ext_resource type="Theme" uid="uid://8f85y4asiu44" path="res://gravitako_theme.tres" id="1_sy1d3"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" path="res://Overlay Mixes.gdshader" id="4_nj5xx"]
 [ext_resource type="Texture2D" uid="uid://crfqb5qcs3opc" path="res://gravitako logo.png" id="4_qxa7h"]
 [ext_resource type="Texture2D" uid="uid://bjcwn8o6snlmn" path="res://dxzander Logo con texto transparente.png" id="4_s8mfq"]
+[ext_resource type="Texture2D" uid="uid://bqlni8fnhcwyh" path="res://Controlls.png" id="5_kmea3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i5gpm"]
 shader = ExtResource("4_nj5xx")
@@ -50,16 +51,28 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 10.0
+offset_bottom = 854.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.56, 0.56)
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme = ExtResource("1_sy1d3")
 
-[node name="Logo" type="TextureRect" parent="Menu/Spacer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Spacer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 500
+
+[node name="Logo" type="TextureRect" parent="Menu/Spacer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("4_qxa7h")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="Menu/Spacer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_kmea3")
 expand_mode = 5
 stretch_mode = 4
 

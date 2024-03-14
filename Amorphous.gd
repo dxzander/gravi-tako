@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-var SPEED: float = 1000.0 * 2
+var SPEED: float = 2000.0
 var inter_speed: float = 10.0
 var rotation_speed: float = 4.0
 var JUMP_DIR := up_direction
@@ -72,7 +72,12 @@ func _physics_process(delta):
 		JUMP_DIR = upOrientation + direction
 		inertia = JUMP_DIR
 		velocity = inertia * SPEED
-	elif is_on_floor():
+	elif Input.is_action_just_pressed("shoot") and is_on_floor() and Input.is_action_pressed("aim"):
+		# then shoot, which is just jump with extra steps
+		JUMP_DIR = global_position.direction_to($Reticle/Reticle3D.global_transform.origin).normalized()
+		inertia = JUMP_DIR
+		velocity = inertia * SPEED
+	elif is_on_floor() and not Input.is_action_pressed("aim"):
 		# movement while "grounded"
 		
 		# get input
