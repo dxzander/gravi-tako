@@ -11,7 +11,7 @@ func _process(delta):
 	pass
 
 func colorize(n: int) -> void:
-	get_parent().get_parent().get_node("Overlays/Color Overlay").material.set_shader_parameter("color", n)
+	#get_parent().get_parent().get_node("Overlays/Color Overlay").material.set_shader_parameter("color", n)
 	pass
 
 func _on_start_body_entered(body):

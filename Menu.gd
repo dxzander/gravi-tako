@@ -9,7 +9,7 @@ var is_fullscreen: bool = false;
 var half_res: bool = false;
 
 func _ready():
-	$"Menu/Menu/MarginContainer/VBoxContainer/Pause-Start".grab_focus()
+	$"Menu/Menu/MarginContainer/VBoxContainer/Menu/Pause-Start".grab_focus()
 	var resolution = DisplayServer.screen_get_size()
 	get_tree().root.set_size(resolution)
 	pass
@@ -28,7 +28,7 @@ func is_in_game() -> bool:
 func _set_pause() -> void:
 	get_tree().paused = true
 	$Menu.show()
-	$"Menu/Menu/MarginContainer/VBoxContainer/Pause-Start".grab_focus()
+	$"Menu/Menu/MarginContainer/VBoxContainer/Menu/Pause-Start".grab_focus()
 	pass
 
 func _unpause() -> void:
@@ -40,9 +40,10 @@ func _on_pause_start_pressed():
 	if not in_game:
 		get_node("/root/Main").add_child(preload("res://Game.tscn").instantiate())
 		get_node("/root/Main/tako menu").free()
-		$"Menu/Menu/MarginContainer/VBoxContainer/Pause-Start".text = 'Resume'
+		$"Menu/Menu/MarginContainer/VBoxContainer/Menu/Pause-Start".text = 'Resume'
+		$Menu/Menu/MarginContainer/VBoxContainer/Menu/Title.text = "- Paused-"
 		$Menu.hide()
-		$Menu/Menu/MarginContainer/VBoxContainer/Back.show()
+		$Menu/Menu/MarginContainer/VBoxContainer/Menu/Back.show()
 		in_game = true
 	else:
 		_unpause()
@@ -51,8 +52,8 @@ func _on_pause_start_pressed():
 func _on_back_pressed():
 	get_node("/root/Main").add_child(preload("res://tako_menu.tscn").instantiate())
 	get_node("/root/Main/Game").free()
-	$"Menu/Menu/MarginContainer/VBoxContainer/Pause-Start".text = 'Start Game'
-	$Menu/Menu/MarginContainer/VBoxContainer/Back.hide()
+	$"Menu/Menu/MarginContainer/VBoxContainer/Menu/Pause-Start".text = 'Start Game'
+	$Menu/Menu/MarginContainer/VBoxContainer/Menu/Back.hide()
 	_unpause()
 	$Menu.show()
 	in_game = false
@@ -67,7 +68,7 @@ func _on_window_mode_pressed():
 	pass
 
 func _on_scale_pressed():
-	if $Menu/Menu/MarginContainer/VBoxContainer/Scale.button_pressed:
+	if $Menu/Menu/MarginContainer/VBoxContainer/Menu/Scale.button_pressed:
 		print(DisplayServer.screen_get_size())
 		var resolution = DisplayServer.screen_get_size()
 		get_tree().root.set_size(resolution / 2)
@@ -85,7 +86,7 @@ func _on_scale_pressed():
 	pass
 
 func res_changed() -> void:
-	if $"Menu/Menu/MarginContainer/VBoxContainer/Window Mode".button_pressed: 
+	if $"Menu/Menu/MarginContainer/VBoxContainer/Menu/Window Mode".button_pressed: 
 		get_tree().root.set_mode(Window.MODE_FULLSCREEN)
 	else:
 		get_tree().root.set_mode(Window.MODE_MAXIMIZED)

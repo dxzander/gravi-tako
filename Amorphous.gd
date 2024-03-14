@@ -115,7 +115,7 @@ func _physics_process(delta):
 		target_basis = _basis_from_normal(wall_normal)
 		pass
 		
-	transform.basis = lerp(transform.basis, target_basis, inter_speed * delta).orthonormalized()
+	transform.basis = lerp(transform.basis.orthonormalized(), target_basis, inter_speed * delta).orthonormalized()
 	
 	# update variables
 	update_directions()
