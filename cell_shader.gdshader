@@ -1,7 +1,7 @@
 //rgb to hsv from https://godotshaders.com/shader/hsv-adjustment/
 
 shader_type spatial;
-render_mode cull_disabled, depth_prepass_alpha;
+render_mode cull_disabled, depth_draw_always;
 
 uniform sampler2D main_texture : source_color, hint_default_white;
 uniform vec4 main_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
@@ -116,6 +116,6 @@ void light() {
 		//specular_value *= ATTENUATION;
 		float gloss = pow(2.0, 8.0 * (1.0 - specular_threshold));
 		float intensity = pow(dot(NORMAL, normalize(VIEW + LIGHT)), gloss * gloss);
-		SPECULAR_LIGHT += LIGHT_COLOR * spec * ATTENUATION * smoothstep(0.05, 0.05 + specular_softness, intensity);
+		SPECULAR_LIGHT += (LIGHT_COLOR / PI) * spec * ATTENUATION * smoothstep(0.05, 0.05 + specular_softness, intensity);
 	}
 }

@@ -54,6 +54,7 @@ func _on_back_pressed():
 	get_node("/root/Main").add_child(preload("res://tako_menu.tscn").instantiate())
 	get_node("/root/Main/Game").free()
 	$"Menu/Menu/MarginContainer/VBoxContainer/Menu/Pause-Start".text = 'Start Game'
+	$Menu/Menu/MarginContainer/VBoxContainer/Menu/Title.text = "gravi-tako!"
 	$Menu/Menu/MarginContainer/VBoxContainer/Menu/Back.hide()
 	_unpause()
 	$Menu.show()
@@ -70,23 +71,22 @@ func _on_window_mode_pressed():
 
 func _on_scale_pressed():
 	if $Menu/Menu/MarginContainer/VBoxContainer/Menu/Scale.button_pressed:
-		print(DisplayServer.screen_get_size())
+		#print(DisplayServer.screen_get_size())
 		var resolution = DisplayServer.screen_get_size()
 		get_tree().root.set_size(resolution / 2)
 		get_tree().root.set_content_scale_mode(Window.CONTENT_SCALE_MODE_VIEWPORT)
 		RenderingServer.global_shader_parameter_set('outline_width', 3.0)
-		#get_tree().root.set_mode(Window.MODE_WINDOWED)
 		res_changed()
 	else:
 		var resolution = DisplayServer.screen_get_size()
 		get_tree().root.set_size(resolution)
 		get_tree().root.set_content_scale_mode(Window.CONTENT_SCALE_MODE_DISABLED)
 		RenderingServer.global_shader_parameter_set('outline_width', 6.0)
-		#get_tree().root.set_mode(Window.MODE_WINDOWED)
 		res_changed()
 	pass
 
 func res_changed() -> void:
+	get_tree().root.set_mode(Window.MODE_WINDOWED)
 	if $"Menu/Menu/MarginContainer/VBoxContainer/Menu/Window Mode".button_pressed: 
 		get_tree().root.set_mode(Window.MODE_FULLSCREEN)
 	else:
