@@ -20,7 +20,6 @@ vec2 getDepth(vec2 screen_uv, sampler2D depth_texture, mat4 inv_projection_matri
 	return vec2(-view_space.z, raw_depth);
 }
 
-
 void fragment() {
 	vec2 e = vec2(1.0/VIEWPORT_SIZE.xy) * 1.0; //1.0
 
