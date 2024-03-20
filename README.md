@@ -16,9 +16,9 @@ The game was made on godot 4.2.1 and tested on Windows 11 and Macos Sonoma.
 
 ## Credits:
 
-- Some shaders (specially the outlines) were partially or fully copied from godotshaders.com, with the proper credit writen down in the file itself.
+- Some shaders (specially the outlines) were partially or fully taken from godotshaders.com, with the proper credit writen down in the file itself.
 - The fonts used were traffic (https://www.1001freefonts.com/traffic.font) and blowbrush (https://www.1001freefonts.com/blowbrush.font).
 - The space photo used as a background was acquired from NASA https://www.nasa.gov/image-detail/a-high-amount-of-ram/.
-- Jigglebones addon by Yaelatletl https://github.com/yaelatletl/godot-jigglebones/tree/master
+- Jigglebones Godot 4 addon by Yaelatletl https://github.com/yaelatletl/godot-jigglebones/tree/master
 
 Everything else was made by me, from 0 during the game jam, or in the case of the cell shader, made by me a few weeks before.
