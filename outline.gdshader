@@ -16,7 +16,7 @@ void vertex() {
 	if (use_global) {
 		width = outline_width;
 	} else {
-		width = outline_width * 2.0;
+		width = outline_width_local;
 	}
 	vec2 offset = normalize(clip_normal.xy) / VIEWPORT_SIZE * clip_position.w * width * 2.0;
 	

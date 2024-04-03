@@ -1,36 +1,35 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://h33wr1ja7dna"]
 
-[ext_resource type="Shader" path="res://outline2.gdshader" id="1_y028d"]
+[ext_resource type="Shader" path="res://outline.gdshader" id="1_kvix6"]
 [ext_resource type="Shader" path="res://cell_shader.gdshader" id="2_oqxwq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hc82o"]
 render_priority = 0
-shader = ExtResource("1_y028d")
-shader_parameter/shadow_color = Color(0.176471, 0.121569, 0.223529, 1)
-shader_parameter/shadow_thickness = 3.0
+shader = ExtResource("1_kvix6")
+shader_parameter/outline_color = null
+shader_parameter/use_global = true
+shader_parameter/outline_width_local = 1.0
 
 [resource]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_hc82o")
 shader = ExtResource("2_oqxwq")
 shader_parameter/main_color = Color(0.878431, 0.843137, 0.933333, 1)
-shader_parameter/is_glass = false
+shader_parameter/normal_strength = 1.0
 shader_parameter/is_metal = false
 shader_parameter/metalness = 1.0
 shader_parameter/roughness = 0.0
 shader_parameter/shade_threshold = 0.0
 shader_parameter/shade_softness = 0.1
-shader_parameter/parametric_shade = false
+shader_parameter/parametric_shade = true
 shader_parameter/shade_darkness = 0.5
-shader_parameter/shade_color = Color(0.490196, 0.439216, 0.537255, 1)
+shader_parameter/edge_threshold = 0.763
+shader_parameter/edge_softness = 0.05
+shader_parameter/edge_color = Color(0.984314, 0.698039, 0.439216, 1)
 shader_parameter/is_specular = false
 shader_parameter/specular_threshold = 0.5
 shader_parameter/specular_softness = 0.1
-shader_parameter/parametric_specular = true
-shader_parameter/specular_brightness = 0.5
-shader_parameter/specular_color = Color(0, 0, 0, 0)
-shader_parameter/edge_threshold = 0.1
-shader_parameter/edge_softness = 0.05
-shader_parameter/edge_color = Color(0.984314, 0.698039, 0.439216, 1)
+shader_parameter/specular_transparency = 0.5
 shader_parameter/is_emitting = false
 shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/emission_energy = 1.0

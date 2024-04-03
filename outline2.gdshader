@@ -11,6 +11,9 @@ uniform sampler2D NORMAL_TEXTURE : hint_normal_roughness_texture, filter_nearest
 
 uniform vec3 shadow_color : source_color = vec3(0.0);
 global uniform float outline_width;
+uniform bool use_global = true;
+uniform float outline_width_local = 1.0;
+varying float width;
 
 vec2 getDepth(vec2 screen_uv, sampler2D depth_texture, mat4 inv_projection_matrix){
 	float raw_depth = texture(depth_texture, screen_uv)[0];
@@ -37,9 +40,15 @@ void fragment() {
 
 	vec3 normal = texture(NORMAL_TEXTURE, SCREEN_UV).rgb * 2.0 - 1.0;
 	
-	for (float x = -outline_width; x <= outline_width; x += 1.0) {
-		for (float y = -outline_width; y <= outline_width; y += 1.0){
-			if ((x == 0.0 && y == 0.0) || (outline_width * outline_width < (x*x + y*y))){
+	if (use_global) {
+		width = outline_width;
+	} else {
+		width = outline_width_local;
+	}
+	
+	for (float x = -width; x <= width; x += 1.0) {
+		for (float y = -width; y <= width; y += 1.0){
+			if ((x == 0.0 && y == 0.0) || (width * width < (x*x + y*y))){
 				continue;
 			}
 			
