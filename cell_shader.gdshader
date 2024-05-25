@@ -2,6 +2,7 @@
 
 shader_type spatial;
 render_mode cull_disabled;
+//render_mode cull_disabled, depth_draw_never;
 
 group_uniforms albedo;
 uniform sampler2D main_texture : source_color, hint_default_white;

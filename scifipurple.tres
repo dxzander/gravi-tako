@@ -1,11 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://4076waggyfp"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://4076waggyfp"]
 
-[ext_resource type="Material" uid="uid://cj8b7x204lrk4" path="res://new_outlines.tres" id="1_fcbnw"]
 [ext_resource type="Shader" path="res://cell_shader_test.gdshader" id="2_0xqey"]
 
 [resource]
 render_priority = 0
-next_pass = ExtResource("1_fcbnw")
 shader = ExtResource("2_0xqey")
 shader_parameter/main_color = Color(0.552941, 0, 0.65098, 0.427451)
 shader_parameter/normal_strength = 1.0

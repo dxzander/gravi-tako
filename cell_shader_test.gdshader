@@ -1,7 +1,7 @@
 //rgb to hsv from https://godotshaders.com/shader/hsv-adjustment/
 
 shader_type spatial;
-render_mode cull_disabled, depth_prepass_alpha, blend_add;
+render_mode cull_disabled, depth_prepass_alpha;
 
 group_uniforms albedo;
 uniform sampler2D main_texture : source_color, hint_default_white;
