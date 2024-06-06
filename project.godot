@@ -199,9 +199,9 @@ occlusion_culling/use_occlusion_culling=true
 
 shadow_thickness={
 "type": "float",
-"value": 6.0
+"value": 5.0
 }
 outline_width={
 "type": "float",
-"value": 6.0
+"value": 5.0
 }
