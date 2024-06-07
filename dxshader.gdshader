@@ -4,8 +4,7 @@
 // metalcap from https://godotshaders.com/shader/view-matcap/
 
 shader_type spatial;
-//render_mode cull_disabled;
-//render_mode vertex_lighting;
+render_mode cull_disabled;
 
 group_uniforms albedo;
 uniform sampler2D main_texture : source_color, hint_default_white;
@@ -33,7 +32,7 @@ uniform float shade_softness : hint_range(0.0, 1.0, 0.001) = 0.15;
 uniform vec4 shade_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
 uniform bool parametric_shade = true;
 uniform float shade_darkness : hint_range(0.0, 1.0, 0.05) = 0.5; //supposed to be a %
-uniform float shade_saturation : hint_range(-1.0, 1.0, 0.05) = 0.0; //supposed to be a %
+uniform float shade_saturation : hint_range(0.0, 1.0, 0.05) = 0.0; //supposed to be a %
 uniform float shade_hue_shift : hint_range(-0.5, 0.5, 0.01) = 0.0; //supposed to be a %
 
 group_uniforms edging;
@@ -43,7 +42,7 @@ uniform float edge_softness : hint_range(0.0, 1.0, 0.001) = 0.05;
 uniform vec4 edge_color : source_color = vec4(1.0, 1.0, 1.0, 0.4);
 uniform bool parametric_edging = true;
 uniform float edge_darkness : hint_range(0.0, 1.0, 0.05) = 0.5; //supposed to be a %
-uniform float edge_saturation : hint_range(-1.0, 1.0, 0.05) = 0.0; //supposed to be a %
+uniform float edge_saturation : hint_range(0.0, 1.0, 0.05) = 0.0; //supposed to be a %
 uniform float edge_hue_shift : hint_range(-0.5, 0.5, 0.01) = 0.0; //supposed to be a %
 
 group_uniforms specular;
@@ -83,7 +82,6 @@ void vertex() {
 
 void fragment() {
 	vec4 _main = vec4(main_color, 1.0) * texture(main_texture, UV);
-	vec3 gen_noise = vec3(0,0,0);
 	
 	if (is_edging) {
 		float fresnel = fresnel(1.0, NORMAL, VIEW);
@@ -114,7 +112,7 @@ void fragment() {
 		ALBEDO *= mix(vec3(1.0), texture(matcap, matcap_uv).rgb, metalness);
 	}
 	
-	NORMAL_MAP = texture(normal_map, UV * vec2(normal_scale_h, normal_scale_v)).xyz + gen_noise;
+	NORMAL_MAP = texture(normal_map, UV * vec2(normal_scale_h, normal_scale_v)).xyz;
 	NORMAL_MAP_DEPTH = normal_strength;
 }
 
