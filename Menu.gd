@@ -12,7 +12,7 @@ func _ready():
 	$"Menu/Menu/MarginContainer/VBoxContainer/Menu/Pause-Start".grab_focus()
 	var resolution = DisplayServer.screen_get_size()
 	get_tree().root.set_size(resolution)
-	AudioServer.set_bus_volume_db(0, linear_to_db(0.3))
+	AudioServer.set_bus_volume_db(0, linear_to_db(0.2))
 	pass
 
 func _process(delta):
