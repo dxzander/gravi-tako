@@ -1,6 +1,7 @@
 extends Node
 
 var sensibility_modifier: float = 1.0
+var cookies_found: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

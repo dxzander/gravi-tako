@@ -210,6 +210,7 @@ text = "@dxzander"
 uri = "https://twitter.com/dxzander"
 
 [node name="Color Overlay" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_i5gpm")
 layout_mode = 1
 anchors_preset = 15
