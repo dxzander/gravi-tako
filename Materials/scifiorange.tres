@@ -6,7 +6,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wl2h7"]
 render_priority = 0
 shader = ExtResource("1_n8cam")
-shader_parameter/outline_color = Color(0.709804, 0.427451, 0, 1)
+shader_parameter/outline_color = Color(0.831373, 0.690196, 0, 1)
 shader_parameter/use_global = true
 shader_parameter/outline_width_local = 1.0
 shader_parameter/is_edging = true
@@ -22,7 +22,7 @@ shader_parameter/edge_hue_shift = -0.1
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_wl2h7")
 shader = ExtResource("2_bhxjt")
-shader_parameter/main_color = Color(0.709804, 0.427451, 0, 1)
+shader_parameter/main_color = Color(0.831373, 0.690196, 0, 1)
 shader_parameter/transparency = 1.0
 shader_parameter/normal_strength = 1.0
 shader_parameter/normal_scale_h = 1.0
@@ -40,7 +40,7 @@ shader_parameter/shade_hue_shift = -0.1
 shader_parameter/is_edging = true
 shader_parameter/edge_threshold = 0.5
 shader_parameter/edge_softness = 0.05
-shader_parameter/edge_color = Color(0.87, 0.5945, 0, 1)
+shader_parameter/edge_color = Color(0.870588, 1, 0, 0.662745)
 shader_parameter/parametric_edging = false
 shader_parameter/edge_darkness = 0.5
 shader_parameter/edge_saturation = 0.0
