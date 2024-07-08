@@ -30,11 +30,13 @@ func _set_pause() -> void:
 	get_tree().paused = true
 	$Menu.show()
 	$"Menu/Menu/MarginContainer/VBoxContainer/Menu/Pause-Start".grab_focus()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	pass
 
 func _unpause() -> void:
 	get_tree().paused = false
 	$Menu.hide()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	pass
 
 func _on_pause_start_pressed():
@@ -46,6 +48,7 @@ func _on_pause_start_pressed():
 		$Menu.hide()
 		$Menu/Menu/MarginContainer/VBoxContainer/Menu/Back.show()
 		in_game = true
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	else:
 		_unpause()
 	pass
