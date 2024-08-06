@@ -6,7 +6,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_obwl2"]
 render_priority = 0
 shader = ExtResource("1_v5f64")
-shader_parameter/outline_color = Color(0, 0.678431, 0.831373, 1)
+shader_parameter/outline_color = Color(0.0509804, 0.290196, 0.239216, 1)
 shader_parameter/use_global = true
 shader_parameter/outline_width_local = 1.0
 shader_parameter/is_edging = true
@@ -49,6 +49,6 @@ shader_parameter/is_specular = true
 shader_parameter/specular_threshold = 0.75
 shader_parameter/specular_softness = 0.1
 shader_parameter/specular_transparency = 0.1
-shader_parameter/is_emitting = false
+shader_parameter/is_emitting = true
 shader_parameter/emission_color = Color(1, 1, 1, 1)
 shader_parameter/emission_energy = 0.05

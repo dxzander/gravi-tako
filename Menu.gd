@@ -44,7 +44,7 @@ func _on_pause_start_pressed():
 		get_node("/root/Main").add_child(preload("res://Game.tscn").instantiate())
 		get_node("/root/Main/tako menu").free()
 		$"Menu/Menu/MarginContainer/VBoxContainer/Menu/Pause-Start".text = 'Resume'
-		$Menu/Menu/MarginContainer/VBoxContainer/Menu/Title.text = "- Paused-"
+		$Menu/Menu/MarginContainer/VBoxContainer/Menu/Title.text = "- Paused -"
 		$Menu.hide()
 		$Menu/Menu/MarginContainer/VBoxContainer/Menu/Back.show()
 		in_game = true
@@ -62,8 +62,8 @@ func _on_back_pressed():
 	_unpause()
 	$Menu.show()
 	in_game = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	pass
-
 
 func _on_window_mode_pressed():
 	if get_tree().root.get_mode() == Window.MODE_WINDOWED or get_tree().root.get_mode() == Window.MODE_MAXIMIZED:
@@ -101,11 +101,9 @@ func _on_cam_slider_value_changed(value):
 	Globals.sensibility_modifier = value
 	pass
 
-
 func _on_vol_slider_value_changed(value):
 	AudioServer.set_bus_volume_db(0, linear_to_db(value))
 	pass
-
 
 func _on_button_pressed():
 	get_tree().quit()

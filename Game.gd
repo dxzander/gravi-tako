@@ -9,7 +9,6 @@ func _ready():
 func _process(delta):
 	pass
 
-
 func _on_space_cookie_tako_eated_me():
 	Globals.cookies_found += 1
 	$Overlays/Contador/Label.text = "Cookies: " + str(Globals.cookies_found)
