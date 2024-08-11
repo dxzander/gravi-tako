@@ -11,5 +11,6 @@ func _process(delta):
 
 func _on_space_cookie_tako_eated_me():
 	Globals.cookies_found += 1
-	$Overlays/Contador/Label.text = "Cookies: " + str(Globals.cookies_found)
+	#$Overlays/Contador/Cookies.text = "Cookies: " + str(Globals.cookies_found)
+	$Overlays/Contador/Cookies.set_text("Cookies: %d" % Globals.cookies_found)
 	pass # Replace with function body.
