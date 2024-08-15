@@ -92,9 +92,11 @@ func cam_recenter() -> void:
 		vert_dif = 0.0
 		hor_dif = 0.0
 	rotate($"../Camera".global_transform.basis.x, rotation_speed * vert_dif) # vertical
-	rotate(player.basis.y, rotation_speed * (hor_dif + input_dir.x * Globals.sensibility_modifier)) # horizontal
+	rotate(player.basis.y, rotation_speed * hor_dif) # horizontal
+	#rotate(player.basis.y, rotation_speed * (hor_dif + input_dir.x * Globals.sensibility_modifier)) # horizontal
 	pass
 
+# from silveriver
 #func _input(event) -> void:
 	#if event is InputEventMouseMotion:
 		## modify accumulated mouse rotation
@@ -106,10 +108,15 @@ func cam_recenter() -> void:
 		#rotate_object_local(Vector3(1, 0, 0), rot_y) # then rotate in X
 
 func _input(event) -> void:
+	var mouse_moved: bool = false
 	if event is InputEventMouseMotion:
 		# modify accumulated mouse rotation
 		rot_x = -event.relative.x
 		rot_y = -event.relative.y
+		mouse_moved = true
+	if not mouse_moved:
+		rot_x = 0.0
+		rot_y = 0.0
 	pass
 
 func _on_camera_target_found():

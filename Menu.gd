@@ -4,9 +4,9 @@ extends Control
 # true in game
 # false menu
 
-var in_game: bool = false;
-var is_fullscreen: bool = false;
-var half_res: bool = false;
+var in_game: bool = false
+@export var is_fullscreen: bool = false
+@export var half_res: bool = false
 
 func _ready():
 	$"Menu/Menu/MarginContainer/VBoxContainer/Menu/Pause-Start".grab_focus()
@@ -109,3 +109,10 @@ func _on_vol_slider_value_changed(value):
 func _on_button_pressed():
 	get_tree().quit()
 	pass
+
+func _on_shadows_pressed():
+	if Globals.get_shadows_state() == false:
+		Globals.set_shadows_state(true)
+	else:
+		Globals.set_shadows_state(false)
+	pass # Replace with function body.

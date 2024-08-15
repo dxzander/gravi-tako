@@ -1,0 +1,54 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://r1autgnxfwwn"]
+
+[ext_resource type="Shader" path="res://dxoutlines.gdshader" id="1_yts7e"]
+[ext_resource type="Shader" path="res://dxshader_crystals.gdshader" id="2_tumpj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qqxvj"]
+render_priority = 0
+shader = ExtResource("1_yts7e")
+shader_parameter/outline_color = Color(0.0509804, 0.290196, 0.239216, 1)
+shader_parameter/use_global = true
+shader_parameter/outline_width_local = 1.0
+shader_parameter/is_edging = true
+shader_parameter/edge_threshold = 0.85
+shader_parameter/edge_softness = 0.35
+shader_parameter/edge_color = Color(1, 1, 1, 0.4)
+shader_parameter/parametric_edging = true
+shader_parameter/edge_darkness = 0.0
+shader_parameter/edge_saturation = 0.65
+shader_parameter/edge_hue_shift = -0.1
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_qqxvj")
+shader = ExtResource("2_tumpj")
+shader_parameter/main_color = Color(0, 0.678431, 0.831373, 1)
+shader_parameter/transparency = 0.5
+shader_parameter/normal_strength = 1.0
+shader_parameter/normal_scale_h = 1.0
+shader_parameter/normal_scale_v = 1.0
+shader_parameter/is_metal = false
+shader_parameter/metalness = 0.2
+shader_parameter/roughness = 0.0
+shader_parameter/shade_threshold = 0.0
+shader_parameter/shade_softness = 0.1
+shader_parameter/shade_color = Color(0, 0, 0, 1)
+shader_parameter/parametric_shade = true
+shader_parameter/shade_darkness = 0.0
+shader_parameter/shade_saturation = 0.5
+shader_parameter/shade_hue_shift = -0.1
+shader_parameter/is_edging = true
+shader_parameter/edge_threshold = 0.5
+shader_parameter/edge_softness = 0.05
+shader_parameter/edge_color = Color(0, 0.7505, 0.79, 1)
+shader_parameter/parametric_edging = false
+shader_parameter/edge_darkness = 0.5
+shader_parameter/edge_saturation = 0.0
+shader_parameter/edge_hue_shift = 0.0
+shader_parameter/is_specular = true
+shader_parameter/specular_threshold = 0.75
+shader_parameter/specular_softness = 0.1
+shader_parameter/specular_transparency = 0.8
+shader_parameter/is_emitting = true
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/emission_energy = 0.05
