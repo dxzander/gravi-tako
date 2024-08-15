@@ -44,16 +44,16 @@ float fresnel(float amount, vec3 normal, vec3 view) {
 void vertex() {
 	vec4 clip_position = PROJECTION_MATRIX * (MODELVIEW_MATRIX * vec4(VERTEX, 1.0));
 	vec3 clip_normal = mat3(PROJECTION_MATRIX) * (mat3(MODELVIEW_MATRIX) * NORMAL);
-	
+
 	if (use_global) {
 		width = outline_width;
 	} else {
 		width = outline_width_local;
 	}
 	vec2 offset = normalize(clip_normal.xy) / VIEWPORT_SIZE * clip_position.w * width * 2.0;
-	
+
 	clip_position.xy += offset;
-	
+
 	POSITION = clip_position;
 }
 
@@ -68,7 +68,7 @@ void vertex() {
 void fragment() {
 	vec4 _main = vec4(outline_color.rgb, 1.0);
 	vec3 gen_noise = vec3(0,0,0);
-	
+
 	if (is_edging) {
 		float fresnel = fresnel(1.0, NORMAL, VIEW);
 		float alpha = smoothstep(edge_threshold - edge_softness, edge_threshold + edge_softness, fresnel);
@@ -81,7 +81,7 @@ void fragment() {
 	} else {
 		ALBEDO = _main.rgb;
 	}
-	
+
 	//if (transparency < 1.0) {
 		//ALPHA = transparency;
 	//}

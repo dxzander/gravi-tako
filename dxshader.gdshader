@@ -83,7 +83,7 @@ void vertex() {
 
 void fragment() {
 	vec4 _main = vec4(main_color, 1.0) * texture(main_texture, UV);
-	
+
 	if (is_edging) {
 		float fresnel = fresnel(1.0, NORMAL, VIEW);
 		float alpha = smoothstep(edge_threshold - edge_softness, edge_threshold + edge_softness, fresnel);
@@ -96,23 +96,23 @@ void fragment() {
 	} else {
 		ALBEDO = _main.rgb;
 	}
-	
+
 	//if (transparency < 1.0) {
 		//ALPHA = transparency;
 	//}
-	
+
 	ROUGHNESS = roughness * texture(roughness_texture, UV).r;
-	
+
 	if (is_emitting) {
 		EMISSION = emission_color.rgb * _main.rgb * emission_energy;
 	}
-	
+
 	if (is_metal) {
 		METALLIC = metalness;
 		vec2 matcap_uv = (NORMAL.xy * vec2(0.5, -0.5) + vec2(0.5, 0.5));
 		ALBEDO *= mix(vec3(1.0), texture(matcap, matcap_uv).rgb, metalness);
 	}
-	
+
 	NORMAL_MAP = texture(normal_map, UV * vec2(normal_scale_h, normal_scale_v)).xyz;
 	NORMAL_MAP_DEPTH = normal_strength;
 }
@@ -120,10 +120,10 @@ void fragment() {
 void light() {
 	float NdotL = dot(NORMAL, LIGHT);
 	vec3 base = ALBEDO.rgb;
-	
+
 	// Shadows
 	float shade_value = smoothstep(shade_threshold - shade_softness, shade_threshold + shade_softness, NdotL);
-	
+
 	if (parametric_shade){
 		vec3 base_hsv = rgb2hsv(base);
 		vec3 shade = hsv2rgb(vec3(base_hsv.x + shade_hue_shift, base_hsv.y + shade_saturation, base_hsv.z * (1.0 - shade_darkness)));
@@ -132,7 +132,7 @@ void light() {
 	} else {
 		DIFFUSE_LIGHT += mix(base, shade_color.rgb, (1.0 - shade_value) * shade_color.a) * ATTENUATION * (LIGHT_COLOR / PI);
 	}
-	
+
 	// Specular
 	if (is_specular) {
 		float gloss = pow(2.0, 8.0 * (1.0 - specular_threshold));
