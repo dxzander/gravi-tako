@@ -11,10 +11,14 @@ config_version=5
 [application]
 
 config/name="gravi-tako"
-run/main_scene="res://main_menu.tscn"
+run/main_scene="res://Menu/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout=""
 
 [autoload]
 

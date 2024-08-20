@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://r1autgnxfwwn"]
 
-[ext_resource type="Shader" path="res://dxoutlines.gdshader" id="1_yts7e"]
-[ext_resource type="Shader" path="res://dxshader_crystals.gdshader" id="2_tumpj"]
+[ext_resource type="Shader" path="res://Materials/dxoutlines.gdshader" id="1_yts7e"]
+[ext_resource type="Shader" path="res://Materials/dxshader_crystals.gdshader" id="2_tumpj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qqxvj"]
 render_priority = 0

@@ -1,35 +1,53 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cwrl2wpnlojiq"]
 
-[ext_resource type="Shader" path="res://outline.gdshader" id="1_4dnot"]
-[ext_resource type="Shader" path="res://cell_shader.gdshader" id="2_xfef0"]
+[ext_resource type="Shader" path="res://Materials/dxoutlines.gdshader" id="1_78ros"]
+[ext_resource type="Shader" path="res://Materials/dxshader.gdshader" id="2_gwvuc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5k1p7"]
 render_priority = 1
-shader = ExtResource("1_4dnot")
+shader = ExtResource("1_78ros")
 shader_parameter/outline_color = Color(0.14902, 0.14902, 0.14902, 1)
 shader_parameter/use_global = true
 shader_parameter/outline_width_local = 1.0
+shader_parameter/is_edging = true
+shader_parameter/edge_threshold = 0.7
+shader_parameter/edge_softness = 0.5
+shader_parameter/edge_color = Color(1, 0.8735, 0.67, 0.133333)
+shader_parameter/parametric_edging = false
+shader_parameter/edge_darkness = 0.0
+shader_parameter/edge_saturation = 0.65
+shader_parameter/edge_hue_shift = 0.35
 
 [resource]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_5k1p7")
-shader = ExtResource("2_xfef0")
-shader_parameter/main_color = Color(0.529412, 0.529412, 0.529412, 1)
+shader = ExtResource("2_gwvuc")
+shader_parameter/main_color = Color(0.533333, 0.533333, 0.533333, 1)
 shader_parameter/normal_strength = 1.0
-shader_parameter/is_metal = true
+shader_parameter/normal_scale_h = 1.0
+shader_parameter/normal_scale_v = 1.0
+shader_parameter/is_metal = false
 shader_parameter/metalness = 0.5
 shader_parameter/roughness = 0.0
 shader_parameter/shade_threshold = 0.0
 shader_parameter/shade_softness = 0.1
+shader_parameter/shade_color = Color(0, 0, 0, 1)
 shader_parameter/parametric_shade = false
 shader_parameter/shade_darkness = 0.5
+shader_parameter/shade_saturation = 0.0
+shader_parameter/shade_hue_shift = 0.0
+shader_parameter/is_edging = true
 shader_parameter/edge_threshold = 0.5
 shader_parameter/edge_softness = 0.05
-shader_parameter/edge_color = Color(1, 0.87451, 0.670588, 1)
+shader_parameter/edge_color = Color(1, 0.8735, 0.67, 0.407843)
+shader_parameter/parametric_edging = false
+shader_parameter/edge_darkness = 0.5
+shader_parameter/edge_saturation = 0.0
+shader_parameter/edge_hue_shift = 0.0
 shader_parameter/is_specular = true
-shader_parameter/specular_threshold = 0.75
-shader_parameter/specular_softness = 0.82
+shader_parameter/specular_threshold = 0.5
+shader_parameter/specular_softness = 0.1
 shader_parameter/specular_transparency = 0.5
 shader_parameter/is_emitting = true
 shader_parameter/emission_color = Color(0.890196, 0.890196, 0.266667, 1)
-shader_parameter/emission_energy = 0.1
+shader_parameter/emission_energy = 0.05
