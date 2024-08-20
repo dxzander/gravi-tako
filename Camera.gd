@@ -4,7 +4,7 @@ var rotation_speed: float = 0.1
 var curTar := Vector3(0, 0, 0)
 var realTar := Vector3(0, 0, 0)
 var lerpedTar := Vector3(0, 0, 0)
-var cam_default_position := Vector3(0,11,22)
+var cam_default_position := Vector3(0,9,12)
 
 @export var target = Node3D
 @export var player = Node3D

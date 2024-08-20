@@ -1,0 +1,39 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cftuxnig2jtug"]
+
+[ext_resource type="Material" uid="uid://dd68vhxkuynt0" path="res://Materials/outlines.tres" id="1_2de7r"]
+[ext_resource type="Shader" path="res://dxshader.gdshader" id="2_q5mak"]
+
+[resource]
+render_priority = 0
+next_pass = ExtResource("1_2de7r")
+shader = ExtResource("2_q5mak")
+shader_parameter/main_color = Color(0.494118, 0.494118, 0.494118, 1)
+shader_parameter/transparency = 1.0
+shader_parameter/normal_strength = 1.0
+shader_parameter/normal_scale_h = 1.0
+shader_parameter/normal_scale_v = 1.0
+shader_parameter/is_metal = false
+shader_parameter/metalness = 0.2
+shader_parameter/roughness = 0.0
+shader_parameter/shade_threshold = 0.0
+shader_parameter/shade_softness = 0.1
+shader_parameter/shade_color = Color(0, 0, 0, 1)
+shader_parameter/parametric_shade = true
+shader_parameter/shade_darkness = 0.5
+shader_parameter/shade_saturation = 0.0
+shader_parameter/shade_hue_shift = 0.0
+shader_parameter/is_edging = true
+shader_parameter/edge_threshold = 0.5
+shader_parameter/edge_softness = 0.05
+shader_parameter/edge_color = Color(0.407843, 0.552941, 0.768627, 0.27451)
+shader_parameter/parametric_edging = false
+shader_parameter/edge_darkness = 0.5
+shader_parameter/edge_saturation = 0.0
+shader_parameter/edge_hue_shift = 0.0
+shader_parameter/is_specular = true
+shader_parameter/specular_threshold = 0.75
+shader_parameter/specular_softness = 0.1
+shader_parameter/specular_transparency = 0.1
+shader_parameter/is_emitting = true
+shader_parameter/emission_color = Color(1, 1, 1, 1)
+shader_parameter/emission_energy = 0.05

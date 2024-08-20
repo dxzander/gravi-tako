@@ -9,6 +9,12 @@ var inter_speed: float = 0.025
 var vert_dif: float = 0.0
 var hor_dif: float = 0.0
 
+# mouse things
+var LOOKAROUND_SPEED: float = -0.001
+var rot_x: float = 0.0
+var rot_y: float = 0.0
+var cap_y: float = 0.4
+
 @export var player = Node3D
 
 @onready var curFront: Vector3 = basis.z
@@ -23,7 +29,11 @@ func _physics_process(delta):
 	
 	## aim
 	# get input
-	input_dir = Input.get_vector("cam_right", "cam_left", "cam_down", "cam_up").normalized()
+	if rot_x != 0 || rot_y != 0:
+		input_dir = Vector2(rot_x, rot_y).normalized()
+	else:
+		input_dir = Input.get_vector("cam_right", "cam_left", "cam_down", "cam_up").normalized()
+	
 	if Input.is_action_pressed("aim"):
 		$Reticle3D.show()
 		#if $Reticle3D.is_on_wall():
@@ -51,30 +61,75 @@ func _physics_process(delta):
 	else: #perfect
 		apply_rotation()
 	
-	# move towards center
-	# vertical
-	if not Input.is_action_pressed("aim"):
-		vert_dif = curFront.signed_angle_to(player.global_transform.basis.z, player.global_transform.basis.x) + deg_to_rad(15.0)
-	else:
-		vert_dif = 0.0
-	rotate($"../Camera".global_transform.basis.x, rotation_speed * vert_dif)
-
-	#horizontal
-	if not Input.is_action_pressed("aim"):
-		hor_dif = curFront.signed_angle_to(player.global_transform.basis.z, player.global_transform.basis.y)
-	else:
-		hor_dif = 0.0
-	rotate(player.basis.y, rotation_speed * (hor_dif + input_dir.x * Globals.sensibility_modifier))
+	## move towards center (moved to cam recenter method)
+	## vertical
+	#if not Input.is_action_pressed("aim"):
+		#vert_dif = curFront.signed_angle_to(player.global_transform.basis.z, player.global_transform.basis.x) + deg_to_rad(15.0)
+	#else:
+		#vert_dif = 0.0
+	#rotate($"../Camera".global_transform.basis.x, rotation_speed * vert_dif)
+#
+	##horizontal
+	#if not Input.is_action_pressed("aim"):
+		#hor_dif = curFront.signed_angle_to(player.global_transform.basis.z, player.global_transform.basis.y)
+	#else:
+		#hor_dif = 0.0
+	#rotate(player.basis.y, rotation_speed * (hor_dif + input_dir.x * Globals.sensibility_modifier))
+	cam_recenter()
 	pass
 
 func apply_rotation() -> void:
 	rotate($"../Camera".global_transform.basis.x, rotation_speed * input_dir.y * Globals.sensibility_modifier)
 	pass
 
+func cam_recenter() -> void:
+	# move towards center
+	# vertical
+	if not Input.is_action_pressed("aim"):
+		vert_dif = curFront.signed_angle_to(player.global_transform.basis.z, player.global_transform.basis.x) + deg_to_rad(15.0)
+		hor_dif = curFront.signed_angle_to(player.global_transform.basis.z, player.global_transform.basis.y)
+	else:
+		vert_dif = 0.0
+		hor_dif = 0.0
+	rotate($"../Camera".global_transform.basis.x, rotation_speed * vert_dif) # vertical
+	rotate(player.basis.y, rotation_speed * hor_dif) # horizontal
+	#rotate(player.basis.y, rotation_speed * (hor_dif + input_dir.x * Globals.sensibility_modifier)) # horizontal
+	pass
+
+# from silveriver
+#func _input(event) -> void:
+	#if event is InputEventMouseMotion:
+		## modify accumulated mouse rotation
+		#rot_x += event.relative.x * LOOKAROUND_SPEED
+		#if (abs(rot_y) < cap_y) || (rot_y > 0 and event.relative.y > 0) || (rot_y <= 0 and event.relative.y < 0):
+			#rot_y += event.relative.y * LOOKAROUND_SPEED
+		#transform.basis = Basis() # reset rotation
+		#rotate_object_local(Vector3(0, 1, 0), rot_x) # first rotate in Y
+		#rotate_object_local(Vector3(1, 0, 0), rot_y) # then rotate in X
+
+func _input(event) -> void:
+	var mouse_moved: bool = false
+	if event is InputEventMouseMotion:
+		# modify accumulated mouse rotation
+		rot_x = -event.relative.x
+		rot_y = -event.relative.y
+		mouse_moved = true
+	if not mouse_moved:
+		rot_x = 0.0
+		rot_y = 0.0
+	pass
+
 func _on_camera_target_found():
-	$"Reticle3D/Reticle Sprite".texture = load("res://Reticle red.png")
+	$"Reticle3D/Reticle Sprite".texture = load("res://Reticle green.png")
 	pass # Replace with function body.
 
 func _on_camera_target_lost():
-	$"Reticle3D/Reticle Sprite".texture = load("res://Reticle green.png")
+	$"Reticle3D/Reticle Sprite".texture = load("res://Reticle red.png")
+	position = Vector3(0,0,-15)
+	pass # Replace with function body.
+
+
+func _on_ray_aim_collision_point(point):
+	#print("boop")
+	#position = self.to_local(point)
 	pass # Replace with function body.

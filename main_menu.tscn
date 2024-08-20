@@ -165,6 +165,12 @@ theme = ExtResource("1_sy1d3")
 action_mode = 0
 text = "Fullscreen"
 
+[node name="Shadows" type="CheckButton" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu"]
+layout_mode = 2
+theme = ExtResource("1_sy1d3")
+action_mode = 0
+text = "Shadows"
+
 [node name="Scale" type="CheckButton" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu"]
 layout_mode = 2
 theme = ExtResource("1_sy1d3")
@@ -210,6 +216,7 @@ text = "@dxzander"
 uri = "https://twitter.com/dxzander"
 
 [node name="Color Overlay" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_i5gpm")
 layout_mode = 1
 anchors_preset = 15
@@ -224,6 +231,7 @@ color = Color(0.156863, 0.141176, 0.129412, 1)
 [connection signal="value_changed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Sound/VolSlider" to="." method="_on_vol_slider_value_changed"]
 [connection signal="value_changed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Controls/CamSlider" to="." method="_on_cam_slider_value_changed"]
 [connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Window Mode" to="." method="_on_window_mode_pressed"]
+[connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Shadows" to="." method="_on_shadows_pressed"]
 [connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Scale" to="." method="_on_scale_pressed"]
 [connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Button" to="." method="_on_button_pressed"]
