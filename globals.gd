@@ -4,6 +4,8 @@ var sensibility_modifier: float = 1.0
 var cookies_found: int = 0
 var shadows_on: bool = false
 
+signal shadows_changed(new_state: bool)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

@@ -115,4 +115,5 @@ func _on_shadows_pressed():
 		Globals.set_shadows_state(true)
 	else:
 		Globals.set_shadows_state(false)
+	Globals.shadows_changed.emit(Globals.get_shadows_state())
 	pass # Replace with function body.
