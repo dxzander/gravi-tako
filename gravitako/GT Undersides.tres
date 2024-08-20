@@ -23,7 +23,6 @@ render_priority = 0
 next_pass = SubResource("ShaderMaterial_hc82o")
 shader = ExtResource("2_yp5iu")
 shader_parameter/main_color = Color(0.878431, 0.843137, 0.933333, 1)
-shader_parameter/transparency = 1.0
 shader_parameter/normal_strength = 1.0
 shader_parameter/normal_scale_h = 1.0
 shader_parameter/normal_scale_v = 1.0

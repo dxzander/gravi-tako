@@ -23,7 +23,6 @@ render_priority = 0
 next_pass = SubResource("ShaderMaterial_jhcey")
 shader = ExtResource("2_8bllw")
 shader_parameter/main_color = Color(0, 0.741176, 0.196078, 1)
-shader_parameter/transparency = 1.0
 shader_parameter/normal_strength = 1.0
 shader_parameter/normal_scale_h = 1.0
 shader_parameter/normal_scale_v = 1.0

@@ -8,7 +8,6 @@ render_priority = 0
 next_pass = ExtResource("1_2de7r")
 shader = ExtResource("2_q5mak")
 shader_parameter/main_color = Color(0.494118, 0.494118, 0.494118, 1)
-shader_parameter/transparency = 1.0
 shader_parameter/normal_strength = 1.0
 shader_parameter/normal_scale_h = 1.0
 shader_parameter/normal_scale_v = 1.0

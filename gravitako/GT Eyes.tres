@@ -23,7 +23,6 @@ render_priority = 0
 next_pass = SubResource("ShaderMaterial_6roat")
 shader = ExtResource("2_52isa")
 shader_parameter/main_color = Color(0.411788, 0.324053, 0.485544, 1)
-shader_parameter/transparency = 1.0
 shader_parameter/normal_strength = 1.0
 shader_parameter/normal_scale_h = 1.0
 shader_parameter/normal_scale_v = 1.0

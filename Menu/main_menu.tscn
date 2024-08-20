@@ -213,7 +213,7 @@ stretch_mode = 4
 layout_mode = 2
 theme = ExtResource("3_ehuss")
 text = "@dxzander"
-uri = "https://twitter.com/dxzander"
+uri = "https://dxzander.carrd.co/"
 
 [node name="Color Overlay" type="ColorRect" parent="."]
 visible = false

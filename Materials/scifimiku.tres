@@ -23,7 +23,6 @@ render_priority = 0
 next_pass = SubResource("ShaderMaterial_obwl2")
 shader = ExtResource("2_r4x8r")
 shader_parameter/main_color = Color(0, 0.678431, 0.831373, 1)
-shader_parameter/transparency = 1.0
 shader_parameter/normal_strength = 1.0
 shader_parameter/normal_scale_h = 1.0
 shader_parameter/normal_scale_v = 1.0
