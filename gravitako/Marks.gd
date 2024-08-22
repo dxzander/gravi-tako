@@ -10,13 +10,13 @@ extends Marker3D
 
 var is_stepping := false
 
-func _process(delta):
+func _process(delta) -> void:
 	if !is_stepping && !adjacent_target.is_stepping && abs(global_position.distance_to(step_target.global_position)) > step_distance:
 		step()
 		opposite_target.step()
 	pass
 
-func step():
+func step() -> void:
 	var tar_pos = step_target.global_position
 	var half_way = (global_position + step_target.global_position) / 2
 	is_stepping = true

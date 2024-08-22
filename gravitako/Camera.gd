@@ -1,6 +1,6 @@
 extends Node3D
 
-var rotation_speed: float = 0.1
+var rotation_speed: float = 5.0
 var curTar := Vector3(0, 0, 0)
 var realTar := Vector3(0, 0, 0)
 var lerpedTar := Vector3(0, 0, 0)
@@ -18,7 +18,7 @@ func _physics_process(delta):
 	
 	# aim
 	realTar = target.global_position
-	lerpedTar = curTar.lerp(realTar, rotation_speed)
+	lerpedTar = curTar.lerp(realTar, rotation_speed * delta)
 	look_at(lerpedTar, player.get_up())
 	curTar = lerpedTar
 	

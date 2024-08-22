@@ -65,8 +65,7 @@ func _on_window_mode_pressed():
 	pass
 
 func _on_scale_pressed():
-	var resolution = DisplayServer.screen_get_size()
-	var scale_factor: int
+	var scale_factor: float
 	if Globals.half_res:
 		scale_factor = 1
 		Globals.half_res = false
@@ -75,17 +74,8 @@ func _on_scale_pressed():
 		scale_factor = 2
 		Globals.half_res = true
 		get_tree().root.set_content_scale_mode(Window.CONTENT_SCALE_MODE_VIEWPORT)
-	get_tree().root.set_size(resolution / scale_factor)
+	ProjectSettings.set("rendering/scaling_3d/scale", 1 / scale_factor)
 	RenderingServer.global_shader_parameter_set('outline_width', Globals.default_outlines_width / scale_factor)
-	res_changed()
-	pass
-
-func res_changed() -> void:
-	get_tree().root.set_mode(Window.MODE_WINDOWED)
-	if Globals.fullscreen:
-		get_tree().root.set_mode(Window.MODE_FULLSCREEN)
-	else:
-		get_tree().root.set_mode(Window.MODE_MAXIMIZED)
 	pass
 
 func _on_cam_slider_value_changed(value):

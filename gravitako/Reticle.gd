@@ -1,16 +1,16 @@
 extends Node3D
 
-var rotation_speed: float = 0.025
+var rotation_speed: float = 1.25
 var max_top_angle: float = deg_to_rad(165.0)
 var max_bot_angle: float = deg_to_rad(20.0)
 var input_dir := Vector2.ZERO
 
-var inter_speed: float = 0.025
+var inter_speed: float = 1.25
 var vert_dif: float = 0.0
 var hor_dif: float = 0.0
 
 # mouse things
-var LOOKAROUND_SPEED: float = -0.001
+var LOOKAROUND_SPEED: float = -0.05
 var rot_x: float = 0.0
 var rot_y: float = 0.0
 var cap_y: float = 0.4
@@ -44,7 +44,7 @@ func _physics_process(delta):
 		$Reticle3D.hide()
 	
 	# horizontal rotation
-	rotate(player.basis.y, rotation_speed * input_dir.x * 2.0)
+	rotate(player.basis.y, rotation_speed * input_dir.x * 2.0 * delta)
 	
 	# vertical rotation
 	curFront = basis.z
@@ -53,13 +53,13 @@ func _physics_process(delta):
 	if curRotVer > max_top_angle: #too above
 		#print("too above")
 		if input_dir.y < 0:
-			apply_rotation()
+			apply_rotation(delta)
 	elif curRotVer < max_bot_angle: #too below
 		#print("too below")
 		if input_dir.y > 0:
-			apply_rotation()
+			apply_rotation(delta)
 	else: #perfect
-		apply_rotation()
+		apply_rotation(delta)
 	
 	## move towards center (moved to cam recenter method)
 	## vertical
@@ -75,14 +75,14 @@ func _physics_process(delta):
 	#else:
 		#hor_dif = 0.0
 	#rotate(player.basis.y, rotation_speed * (hor_dif + input_dir.x * Globals.sensibility_modifier))
-	cam_recenter()
+	cam_recenter(delta)
 	pass
 
-func apply_rotation() -> void:
-	rotate($"../Camera".global_transform.basis.x, rotation_speed * input_dir.y * Globals.sensibility_modifier)
+func apply_rotation(delta) -> void:
+	rotate($"../Camera".global_transform.basis.x, rotation_speed * input_dir.y * Globals.sensibility_modifier * delta)
 	pass
 
-func cam_recenter() -> void:
+func cam_recenter(delta) -> void:
 	# move towards center
 	# vertical
 	if !Input.is_action_pressed("aim"):
@@ -91,8 +91,8 @@ func cam_recenter() -> void:
 	else:
 		vert_dif = 0.0
 		hor_dif = 0.0
-	rotate($"../Camera".global_transform.basis.x, rotation_speed * vert_dif) # vertical
-	rotate(player.basis.y, rotation_speed * hor_dif) # horizontal
+	rotate($"../Camera".global_transform.basis.x, rotation_speed * vert_dif * delta) # vertical
+	rotate(player.basis.y, rotation_speed * hor_dif * delta) # horizontal
 	#rotate(player.basis.y, rotation_speed * (hor_dif + input_dir.x * Globals.sensibility_modifier)) # horizontal
 	pass
 
