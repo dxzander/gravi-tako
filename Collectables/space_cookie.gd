@@ -8,9 +8,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
+	rotate_object_local(Vector3(0.0, 1.0, 0.0), 0.5 * delta)
 	pass
-
 
 func _on_body_entered(body):
 	if body.name == 'gravitako':
@@ -19,7 +18,6 @@ func _on_body_entered(body):
 		$AnimatedSprite3D.show()
 		$AnimatedSprite3D.play("default")
 	pass # Replace with function body.
-
 
 func _on_animated_sprite_3d_animation_finished():
 	self.queue_free()

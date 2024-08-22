@@ -1,22 +1,13 @@
 extends Node
 
+var music_volume: float = 0.3
 var sensibility_modifier: float = 1.0
 var cookies_found: int = 0
 var shadows_on: bool = false
+var default_outlines_width: float = 6.0
+var fullscreen: bool = false
+var half_res: bool = false
+var in_game: bool = false # true = in game, false = in menu
 
+@warning_ignore("unused_signal")
 signal shadows_changed(new_state: bool)
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-func get_shadows_state() -> bool:
-	return shadows_on
-
-func set_shadows_state(new_state: bool) -> void:
-	shadows_on = new_state
-	pass

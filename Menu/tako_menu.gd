@@ -8,6 +8,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	rotate(Vector3(0.0, 1.0, 0.0), 0.01)
-	rotate(Vector3(0.0, 0.0, -1.0), 0.005)
+	rotate(Vector3(0.0, 1.0, 0.0), 0.5 * delta)
+	rotate(Vector3(0.0, 0.0, -1.0), 0.2 * delta)
 	pass

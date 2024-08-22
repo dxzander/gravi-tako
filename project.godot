@@ -29,12 +29,16 @@ Globals="*res://globals.gd"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
-window/size/resizable=false
+window/size/extend_to_title=true
 window/stretch/aspect="expand"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/jigglebones/plugin.cfg")
+
+[global_group]
+
+player=""
 
 [input]
 
@@ -211,11 +215,7 @@ lights_and_shadows/positional_shadow/atlas_quadrant_3_subdiv=5
 
 [shader_globals]
 
-shadow_thickness={
-"type": "float",
-"value": 5.0
-}
 outline_width={
 "type": "float",
-"value": 5.0
+"value": 6.0
 }

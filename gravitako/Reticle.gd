@@ -63,14 +63,14 @@ func _physics_process(delta):
 	
 	## move towards center (moved to cam recenter method)
 	## vertical
-	#if not Input.is_action_pressed("aim"):
+	#if !Input.is_action_pressed("aim"):
 		#vert_dif = curFront.signed_angle_to(player.global_transform.basis.z, player.global_transform.basis.x) + deg_to_rad(15.0)
 	#else:
 		#vert_dif = 0.0
 	#rotate($"../Camera".global_transform.basis.x, rotation_speed * vert_dif)
 #
 	##horizontal
-	#if not Input.is_action_pressed("aim"):
+	#if !Input.is_action_pressed("aim"):
 		#hor_dif = curFront.signed_angle_to(player.global_transform.basis.z, player.global_transform.basis.y)
 	#else:
 		#hor_dif = 0.0
@@ -85,7 +85,7 @@ func apply_rotation() -> void:
 func cam_recenter() -> void:
 	# move towards center
 	# vertical
-	if not Input.is_action_pressed("aim"):
+	if !Input.is_action_pressed("aim"):
 		vert_dif = curFront.signed_angle_to(player.global_transform.basis.z, player.global_transform.basis.x) + deg_to_rad(15.0)
 		hor_dif = curFront.signed_angle_to(player.global_transform.basis.z, player.global_transform.basis.y)
 	else:
@@ -108,13 +108,13 @@ func cam_recenter() -> void:
 		#rotate_object_local(Vector3(1, 0, 0), rot_y) # then rotate in X
 
 func _input(event) -> void:
-	var mouse_moved: bool = false
+	var mouse_not_moved: bool = true
 	if event is InputEventMouseMotion:
 		# modify accumulated mouse rotation
 		rot_x = -event.relative.x
 		rot_y = -event.relative.y
-		mouse_moved = true
-	if not mouse_moved:
+		mouse_not_moved = false
+	if mouse_not_moved:
 		rot_x = 0.0
 		rot_y = 0.0
 	pass
@@ -127,7 +127,6 @@ func _on_camera_target_lost():
 	$"Reticle3D/Reticle Sprite".texture = load("res://gravitako/Reticle red.png")
 	position = Vector3(0,0,-15)
 	pass # Replace with function body.
-
 
 func _on_ray_aim_collision_point(point):
 	#print("boop")

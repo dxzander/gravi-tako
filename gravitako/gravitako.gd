@@ -77,7 +77,7 @@ func _physics_process(delta):
 		JUMP_DIR = global_position.direction_to($Reticle/Reticle3D.global_transform.origin).normalized()
 		inertia = JUMP_DIR
 		velocity = inertia * SPEED
-	elif is_on_floor() and not Input.is_action_pressed("aim"):
+	elif is_on_floor() and !Input.is_action_pressed("aim"):
 		# movement while "grounded"
 		
 		# get input

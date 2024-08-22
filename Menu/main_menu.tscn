@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ft3kd5aq2k5x"]
+[gd_scene load_steps=10 format=3 uid="uid://ft3kd5aq2k5x"]
 
 [ext_resource type="Script" path="res://Menu/Menu.gd" id="1_hluad"]
 [ext_resource type="PackedScene" uid="uid://c3ke0puhchryw" path="res://Menu/tako_menu.tscn" id="2_fm1lt"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bqlni8fnhcwyh" path="res://Menu/Controls.png" id="5_ccvcx"]
 [ext_resource type="Texture2D" uid="uid://bjcwn8o6snlmn" path="res://Menu/dxzander Logo con texto transparente.png" id="6_e8n42"]
 [ext_resource type="Shader" path="res://Common/Overlay Mixes.gdshader" id="7_vsr6x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1qi2k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i5gpm"]
 shader = ExtResource("7_vsr6x")
@@ -41,39 +43,45 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Spacer" type="Control" parent="Menu"]
+[node name="Info" type="Control" parent="Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Spacer"]
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Info"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 10.0
-offset_bottom = 854.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.56, 0.56)
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme = ExtResource("3_ehuss")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Spacer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Info/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 500
+alignment = 1
 
-[node name="Logo" type="TextureRect" parent="Menu/Spacer/MarginContainer/VBoxContainer"]
+[node name="Logo" type="TextureRect" parent="Menu/Info/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 texture = ExtResource("4_yfxyu")
-expand_mode = 5
+expand_mode = 3
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="Menu/Spacer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="Menu/Info/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme = ExtResource("3_ehuss")
+theme_override_styles/separator = SubResource("StyleBoxFlat_1qi2k")
+
+[node name="TextureRect" type="TextureRect" parent="Menu/Info/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 texture = ExtResource("5_ccvcx")
-expand_mode = 5
+expand_mode = 3
 stretch_mode = 4
 
 [node name="Menu" type="Control" parent="Menu"]
@@ -85,6 +93,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.176471, 0.121569, 0.223529, 0.505882)
@@ -106,6 +115,7 @@ layout_mode = 2
 size_flags_vertical = 0
 
 [node name="Title" type="Label" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_ehuss")
 theme_override_colors/font_color = Color(0.984314, 0.698039, 0.439216, 1)
@@ -118,6 +128,7 @@ layout_mode = 2
 theme = ExtResource("3_ehuss")
 
 [node name="Pause-Start" type="Button" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu"]
+unique_name_in_owner = true
 process_mode = 3
 layout_mode = 2
 theme = ExtResource("3_ehuss")
@@ -137,7 +148,7 @@ text = "Volume: "
 layout_mode = 2
 max_value = 1.0
 step = 0.01
-value = 0.5
+value = 0.3
 tick_count = 11
 ticks_on_borders = true
 
@@ -160,31 +171,36 @@ tick_count = 11
 ticks_on_borders = true
 
 [node name="Window Mode" type="CheckButton" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_ehuss")
 action_mode = 0
 text = "Fullscreen"
 
 [node name="Scale" type="CheckButton" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_ehuss")
 action_mode = 0
 text = "Half Resolution"
 
 [node name="Shadows" type="CheckButton" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_ehuss")
 action_mode = 0
 text = "Shadows"
 
 [node name="Back" type="Button" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme = ExtResource("3_ehuss")
 action_mode = 0
 text = "Back to menu"
 
-[node name="Button" type="Button" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu"]
+[node name="Exit" type="Button" parent="Menu/Menu/MarginContainer/VBoxContainer/Menu"]
+unique_name_in_owner = true
 layout_mode = 2
 action_mode = 0
 text = "Exit game"
@@ -234,4 +250,4 @@ color = Color(0.156863, 0.141176, 0.129412, 1)
 [connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Scale" to="." method="_on_scale_pressed"]
 [connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Shadows" to="." method="_on_shadows_pressed"]
 [connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Menu/Menu/MarginContainer/VBoxContainer/Menu/Exit" to="." method="_on_button_pressed"]
