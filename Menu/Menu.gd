@@ -76,6 +76,7 @@ func _on_scale_pressed():
 		get_tree().root.set_content_scale_mode(Window.CONTENT_SCALE_MODE_VIEWPORT)
 	ProjectSettings.set("rendering/scaling_3d/scale", 1 / scale_factor)
 	RenderingServer.global_shader_parameter_set('outline_width', Globals.default_outlines_width / scale_factor)
+	Globals.scalling_changed.emit()
 	pass
 
 func _on_cam_slider_value_changed(value):

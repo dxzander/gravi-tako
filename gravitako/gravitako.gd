@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 var SPEED: float = 2000.0
-var inter_speed: float = 10.0
+var inter_speed: float = 0.05
 var rotation_speed: float = 4.0
 var JUMP_DIR := up_direction
 var input_dir := Vector2.ZERO
@@ -25,8 +25,6 @@ func _on_ready():
 	pass
 
 func _physics_process(delta):
-	# for debugging
-	#rotate(Vector3(0.0, 0.0, 1.0), 0.01)
 	if up_direction == Vector3.ZERO:
 		up_direction = Vector3.UP
 	
@@ -101,15 +99,15 @@ func _physics_process(delta):
 	elif is_on_wall() or is_on_ceiling():
 		if is_on_wall():
 			wall_normal = get_wall_normal()
-		if is_on_ceiling():
+		elif is_on_ceiling():
 			wall_normal = -get_up_direction()
 		inertia = -wall_normal
+		#inertia = lerp(inertia, -wall_normal, inter_speed)
 		velocity = inertia * SPEED
 		changed = true
 	else:
 		# intertial movement
 		velocity = inertia * SPEED
-		pass
 	
 	# apply whatever rotation and translation was calculated
 	# handle rotation
@@ -118,9 +116,7 @@ func _physics_process(delta):
 		target_basis = transform.looking_at($Dir.global_transform.origin, wall_normal).basis.orthonormalized()
 	else:
 		target_basis = _basis_from_normal(wall_normal)
-		pass
-		
-	transform.basis = lerp(transform.basis, target_basis, inter_speed * delta).orthonormalized()
+	transform.basis = lerp(transform.basis, target_basis, inter_speed).orthonormalized()
 	
 	# update variables
 	update_directions()
@@ -129,7 +125,6 @@ func _physics_process(delta):
 	# apply whatever movement was calculated
 	velocity *= delta
 	move_and_slide()
-	
 	pass
 
 func get_up() -> Vector3:

@@ -10,7 +10,6 @@ var vert_dif: float = 0.0
 var hor_dif: float = 0.0
 
 # mouse things
-var LOOKAROUND_SPEED: float = -0.05
 var rot_x: float = 0.0
 var rot_y: float = 0.0
 var cap_y: float = 0.4
@@ -95,17 +94,6 @@ func cam_recenter(delta) -> void:
 	rotate(player.basis.y, rotation_speed * hor_dif * delta) # horizontal
 	#rotate(player.basis.y, rotation_speed * (hor_dif + input_dir.x * Globals.sensibility_modifier)) # horizontal
 	pass
-
-# from silveriver
-#func _input(event) -> void:
-	#if event is InputEventMouseMotion:
-		## modify accumulated mouse rotation
-		#rot_x += event.relative.x * LOOKAROUND_SPEED
-		#if (abs(rot_y) < cap_y) || (rot_y > 0 and event.relative.y > 0) || (rot_y <= 0 and event.relative.y < 0):
-			#rot_y += event.relative.y * LOOKAROUND_SPEED
-		#transform.basis = Basis() # reset rotation
-		#rotate_object_local(Vector3(0, 1, 0), rot_x) # first rotate in Y
-		#rotate_object_local(Vector3(1, 0, 0), rot_y) # then rotate in X
 
 func _input(event) -> void:
 	var mouse_not_moved: bool = true

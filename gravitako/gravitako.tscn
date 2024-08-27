@@ -1022,7 +1022,7 @@ surface_material_override/3 = ExtResource("11_g0vy2")
 
 [node name="EarL" type="Node3D" parent="Body/Skelly"]
 process_mode = 3
-transform = Transform3D(0.863873, 0.443584, 0.238656, -0.419129, 0.370222, 0.829015, 0.279383, -0.816191, 0.505744, 0.377367, -0.298242, -0.444319)
+transform = Transform3D(0.863873, 0.443584, 0.238655, -0.419129, 0.370222, 0.829016, 0.279383, -0.816191, 0.505744, 0.377367, -0.298242, -0.444319)
 top_level = true
 script = ExtResource("5_w3jf3")
 bone_name = "Head2_l"

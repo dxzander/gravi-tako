@@ -11,3 +11,4 @@ var in_game: bool = false # true = in game, false = in menu
 
 @warning_ignore("unused_signal")
 signal shadows_changed(new_state: bool)
+signal scalling_changed
