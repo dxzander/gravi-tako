@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cgyjp2ixsr5un"]
+
+[ext_resource type="Texture2D" uid="uid://dg314u5qhwilr" path="res://Demo Level/potw2408a.jpg" id="1_5hfqg"]
+
+[resource]
+shading_mode = 0
+albedo_texture = ExtResource("1_5hfqg")
+uv1_scale = Vector3(1.5, 1.5, 1.5)
+disable_receive_shadows = true
