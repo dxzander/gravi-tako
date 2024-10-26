@@ -1,6 +1,6 @@
 extends Node
 
-var music_volume: float = 0.3
+var music_volume: float = 1.0
 var sensibility_modifier: float = 1.0
 var cookies_found: int = 0
 var shadows_on: bool = false

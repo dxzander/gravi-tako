@@ -31,14 +31,14 @@ func _on_left_body_entered(body) -> void:
 func _on_right_body_entered(body) -> void:
 	if body.is_in_group("player"):
 		%"Zone Name".show()
-		%"Zone Name".text = "- Mad Gismo -"
+		%"Zone Name".text = "- Mad Gizmo -"
 		%"Zone Name Timer".start()
 	pass # Replace with function body.
 
 func _on_front_body_entered(body) -> void:
 	if body.is_in_group("player"):
 		%"Zone Name".show()
-		%"Zone Name".text = "- Observatory -"
+		%"Zone Name".text = "- Containment -"
 		%"Zone Name Timer".start()
 	pass # Replace with function body.
 
