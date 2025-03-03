@@ -1,6 +1,6 @@
 [gd_scene load_steps=28 format=4 uid="uid://bvk33cntlostl"]
 
-[ext_resource type="Script" path="res://Collectables/space_cookie.gd" id="1_ooefr"]
+[ext_resource type="Script" uid="uid://de07j4krs7lj5" path="res://Collectables/space_cookie.gd" id="1_ooefr"]
 [ext_resource type="Material" uid="uid://oonc04fwfh3y" path="res://Materials/scifimiku.tres" id="2_yywi2"]
 [ext_resource type="Material" uid="uid://oyvm86h6j63t" path="res://Materials/scifiwhite.tres" id="3_ml3a3"]
 [ext_resource type="Texture2D" uid="uid://2nl30s6ky01j" path="res://Collectables/explosion.png" id="5_nkk4v"]

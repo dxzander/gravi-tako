@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bxejyvi3ta8mf" path="res://gravitako/gravitako.tscn" id="1_8y6y7"]
 [ext_resource type="Material" uid="uid://cftuxnig2jtug" path="res://Materials/scifigrey.tres" id="2_838v0"]
 [ext_resource type="Material" uid="uid://6lqjm3shuvlo" path="res://Materials/scifiblue.tres" id="3_2uilt"]
-[ext_resource type="Shader" path="res://Common/Overlay Mixes.gdshader" id="3_os1q7"]
+[ext_resource type="Shader" uid="uid://dqc3avorhn7bn" path="res://Common/Overlay Mixes.gdshader" id="3_os1q7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bdy1o"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

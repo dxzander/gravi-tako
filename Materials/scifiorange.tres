@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cytcro63sxphf"]
 
-[ext_resource type="Shader" path="res://Materials/dxoutlines.gdshader" id="1_n8cam"]
-[ext_resource type="Shader" path="res://Materials/dxshader.gdshader" id="2_bhxjt"]
+[ext_resource type="Shader" uid="uid://ddh7halpl3ut2" path="res://Materials/dxoutlines.gdshader" id="1_n8cam"]
+[ext_resource type="Shader" uid="uid://cj2pxu6nje15i" path="res://Materials/dxshader.gdshader" id="2_bhxjt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wl2h7"]
 render_priority = 0
