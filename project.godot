@@ -33,10 +33,6 @@ window/size/extend_to_title=true
 window/stretch/aspect="expand"
 window/vsync/vsync_mode=2
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/jigglebones/plugin.cfg")
-
 [global_group]
 
 player=""
@@ -194,6 +190,7 @@ dash={
 
 [physics]
 
+3d/physics_engine="Jolt Physics"
 3d/default_gravity=0.0
 3d/default_gravity_vector=Vector3(0, 0, 0)
 2d/default_gravity_vector=Vector2(0, 0)

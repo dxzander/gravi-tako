@@ -1,7 +1,6 @@
-[gd_scene load_steps=37 format=4 uid="uid://bxejyvi3ta8mf"]
+[gd_scene load_steps=36 format=4 uid="uid://bxejyvi3ta8mf"]
 
 [ext_resource type="Script" uid="uid://qmfxj8abrayn" path="res://gravitako/gravitako.gd" id="1_11c0f"]
-[ext_resource type="Script" uid="uid://ccal2jwkn5ag1" path="res://addons/jigglebones/jigglebone.gd" id="5_w3jf3"]
 [ext_resource type="Script" uid="uid://bssr8xblrmmda" path="res://gravitako/SkellyIK.gd" id="6_ndbcy"]
 [ext_resource type="Script" uid="uid://dyuhsfbl1nw2a" path="res://gravitako/Camera.gd" id="7_227vq"]
 [ext_resource type="Material" uid="uid://ck6wpouuvwrtk" path="res://gravitako/GT Undersides.tres" id="8_2md02"]
@@ -1369,83 +1368,6 @@ bones/80/position = Vector3(0, 0, 0)
 bones/80/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
 bones/80/scale = Vector3(1, 1, 1)
 
-[node name="EarL" type="Node3D" parent="Body/Skelly"]
-process_mode = 3
-transform = Transform3D(0.863873, 0.443584, 0.238656, -0.419129, 0.370222, 0.829015, 0.279383, -0.816191, 0.505744, 0.377367, -0.298242, -0.444319)
-top_level = true
-script = ExtResource("5_w3jf3")
-bone_name = "Head2_l"
-stiffness = 0.1
-use_gravity = true
-
-[node name="EarR" type="Node3D" parent="Body/Skelly"]
-process_mode = 3
-transform = Transform3D(0.863873, -0.443585, -0.238655, 0.419129, 0.370222, 0.829015, -0.279383, -0.816191, 0.505744, -0.377367, -0.298242, -0.44432)
-top_level = true
-script = ExtResource("5_w3jf3")
-bone_name = "Head2_r"
-stiffness = 0.1
-use_gravity = true
-
-[node name="JiggleFL" type="Node3D" parent="Body/Skelly"]
-process_mode = 3
-transform = Transform3D(0.65427, -0.563506, -0.504373, 0.124914, -0.577245, 0.80696, -0.745873, -0.590973, -0.307284, -1.25352, -2.8022, -1.4617)
-top_level = true
-script = ExtResource("5_w3jf3")
-enabled = false
-bone_name = "FootF1_r"
-stiffness = 0.1
-gravity = Vector3(2.08165e-12, -9.81, 2.08165e-12)
-
-[node name="JiggleFR" type="Node3D" parent="Body/Skelly"]
-process_mode = 3
-transform = Transform3D(0.654266, 0.563497, 0.504388, -0.124921, -0.57726, 0.806949, 0.745876, -0.590968, -0.307289, 1.25351, -2.80219, -1.46171)
-top_level = true
-script = ExtResource("5_w3jf3")
-enabled = false
-bone_name = "FootF1_l"
-stiffness = 0.1
-
-[node name="JiggleBL" type="Node3D" parent="Body/Skelly"]
-process_mode = 3
-transform = Transform3D(-0.636886, -0.578368, -0.509771, -0.101473, -0.592578, 0.799096, -0.76425, 0.560661, 0.318716, -2.26724, -1.1897, 2.10051)
-top_level = true
-script = ExtResource("5_w3jf3")
-enabled = false
-bone_name = "FootB1_r"
-stiffness = 0.1
-forward_axis = 2
-
-[node name="JiggleBR" type="Node3D" parent="Body/Skelly"]
-process_mode = 3
-transform = Transform3D(-0.636886, 0.578368, 0.509771, 0.101473, -0.592578, 0.799096, 0.76425, 0.560661, 0.318716, 2.26724, -1.1897, 2.10051)
-top_level = true
-script = ExtResource("5_w3jf3")
-enabled = false
-bone_name = "FootB1_l"
-stiffness = 0.1
-forward_axis = 2
-
-[node name="JiggleCR" type="Node3D" parent="Body/Skelly"]
-process_mode = 3
-transform = Transform3D(-0.00417924, 0.999991, -4.46085e-07, -0.999991, -0.00417924, -0.000110532, -0.000110533, -1.58579e-08, 1, 14.9973, -1.00341, 2.70718e-07)
-top_level = true
-script = ExtResource("5_w3jf3")
-enabled = false
-bone_name = "Hand1_l"
-stiffness = 0.1
-forward_axis = 0
-
-[node name="JiggleCL" type="Node3D" parent="Body/Skelly"]
-process_mode = 3
-transform = Transform3D(-0.00366044, -0.999993, -4.50462e-07, 0.999993, -0.00366044, 0.000118152, -0.000118153, -1.79716e-08, 1, -14.9972, -1.00341, -4.73322e-09)
-top_level = true
-script = ExtResource("5_w3jf3")
-enabled = false
-bone_name = "Hand1_r"
-stiffness = 0.1
-forward_axis = 3
-
 [node name="SkellyIKCL" type="SkeletonIK3D" parent="Body/Skelly"]
 process_priority = 1
 root_bone = &"Arm1_r"
@@ -1522,8 +1444,7 @@ magnet = Vector3(1, 2.08165e-12, 1)
 target_node = NodePath("../../../Marks/MarkBR")
 script = ExtResource("6_ndbcy")
 
-[node name="Body Consolidated" type="MeshInstance3D" parent="Body/Skelly"]
-visible = false
+[node name="Body ConsolidatedHQ" type="MeshInstance3D" parent="Body/Skelly"]
 layers = 3
 gi_mode = 0
 mesh = SubResource("ArrayMesh_gam7m")
@@ -1533,7 +1454,8 @@ surface_material_override/1 = ExtResource("9_v6trn")
 surface_material_override/2 = ExtResource("8_2md02")
 surface_material_override/3 = ExtResource("11_g0vy2")
 
-[node name="Body Consolidated2" type="MeshInstance3D" parent="Body/Skelly"]
+[node name="Body ConsolidatedSQ" type="MeshInstance3D" parent="Body/Skelly"]
+visible = false
 gi_mode = 0
 mesh = SubResource("ArrayMesh_x5hb5")
 skin = SubResource("Skin_x1822")
@@ -1542,6 +1464,50 @@ surface_material_override/1 = ExtResource("9_v6trn")
 surface_material_override/2 = ExtResource("8_2md02")
 surface_material_override/3 = ExtResource("11_g0vy2")
 surface_material_override/4 = ExtResource("9_o1dr1")
+
+[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="Body/Skelly"]
+setting_count = 1
+settings/0/root_bone_name = "Head2_l"
+settings/0/root_bone = 3
+settings/0/end_bone_name = "TipH_l"
+settings/0/end_bone = 4
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 0
+settings/0/radius/value = 0.2
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 4.0
+settings/0/stiffness/damping_curve = null
+settings/0/drag/value = 0.2
+settings/0/drag/damping_curve = null
+settings/0/gravity/value = 0.0
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3D2" type="SpringBoneSimulator3D" parent="Body/Skelly"]
+setting_count = 1
+settings/0/root_bone_name = "Head2_r"
+settings/0/root_bone = 6
+settings/0/end_bone_name = "TipH_r"
+settings/0/end_bone = 7
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 0
+settings/0/radius/value = 0.2
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 4.0
+settings/0/stiffness/damping_curve = null
+settings/0/drag/value = 0.2
+settings/0/drag/damping_curve = null
+settings/0/gravity/value = 0.0
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
 
 [node name="Marks" type="Node3D" parent="."]
 
