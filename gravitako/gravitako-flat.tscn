@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://b8uqjce8wci4b"]
+[gd_scene load_steps=39 format=4 uid="uid://b8uqjce8wci4b"]
 
 [ext_resource type="Script" uid="uid://qmfxj8abrayn" path="res://gravitako/gravitako.gd" id="1_1woua"]
 [ext_resource type="Material" uid="uid://c4dx17euey5vd" path="res://gravitako/GT Rings.tres" id="2_nccbd"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://d02uc6hqk4ebo" path="res://gravitako/Reticle green.png" id="15_u88h8"]
 [ext_resource type="Material" uid="uid://dg0dvjakvp0yy" path="res://Materials/scifiblack.tres" id="16_50jnv"]
 [ext_resource type="Script" uid="uid://cb4g0eu36yryi" path="res://gravitako/support_flat_cam.gd" id="17_nccbd"]
+[ext_resource type="Script" uid="uid://1kiypi6fis2s" path="res://gravitako/takoflato.gd" id="17_xw2rq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mtb8l"]
 margin = 0.1
@@ -760,7 +761,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_7ywge")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_xw2rq"]
-viewport_path = NodePath("Sprite3D/SubViewport")
+viewport_path = NodePath("TakoFlato/SubViewport")
 
 [node name="gravitako" type="CharacterBody3D" groups=["player"]]
 collision_layer = 3
@@ -1699,6 +1700,7 @@ transform = Transform3D(1, -4.39059e-16, 3.36903e-16, 3.36902e-16, 0.965926, 0.2
 cull_mask = 1048565
 current = true
 fov = 80.0
+size = 0.1
 
 [node name="RayCam" type="RayCast3D" parent="Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.5, 1.5)
@@ -1744,20 +1746,24 @@ mesh = SubResource("ArrayMesh_wqegg")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("16_50jnv")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="TakoFlato" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 pixel_size = 0.0185
 texture = SubResource("ViewportTexture_xw2rq")
+script = ExtResource("17_xw2rq")
 
-[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+[node name="SubViewport" type="SubViewport" parent="TakoFlato"]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1920, 1080)
 
-[node name="support" type="Camera3D" parent="Sprite3D/SubViewport"]
+[node name="SupportGimbal" type="Node3D" parent="TakoFlato/SubViewport"]
+script = ExtResource("17_nccbd")
+
+[node name="SupportCam" type="Camera3D" parent="TakoFlato/SubViewport/SupportGimbal"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
 cull_mask = 8
 fov = 80.0
-script = ExtResource("17_nccbd")
 
 [connection signal="target_found" from="Camera" to="Reticle" method="_on_camera_target_found"]
 [connection signal="target_lost" from="Camera" to="Reticle" method="_on_camera_target_lost"]
