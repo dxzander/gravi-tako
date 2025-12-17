@@ -3,6 +3,7 @@ extends Control
 func _ready():
 	var resolution = DisplayServer.screen_get_size()
 	get_tree().root.set_size(resolution)
+	Globals.music_volume = $Menu/Menu/MarginContainer/VBoxContainer/Menu/Sound/VolSlider.value
 	AudioServer.set_bus_volume_db(0, linear_to_db(Globals.music_volume))
 	%"Pause-Start".grab_focus()
 	pass

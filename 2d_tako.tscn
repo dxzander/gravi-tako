@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://b35vypjg8p7y6"]
+
+[ext_resource type="Script" uid="uid://bkarihu7pj2gi" path="res://2_dtako.gd" id="1_cluno"]
+[ext_resource type="AudioStream" uid="uid://c2iigxmdd17uw" path="res://Common/AceGJ0 v3 (Final).wav" id="2_5t6fn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cgclm"]
+radius = 100.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgclm"]
+size = Vector2(1000, 100)
+
+[node name="2DTakoTest" type="Node2D"]
+
+[node name="2dtako" type="CharacterBody2D" parent="."]
+position = Vector2(960, 536)
+script = ExtResource("1_cluno")
+
+[node name="ColorRect" type="ColorRect" parent="2dtako"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2000.0
+offset_top = -2000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(2000, 2000)
+color = Color(0.06879827, 0.06879828, 0.06879828, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2dtako"]
+shape = SubResource("CircleShape2D_cgclm")
+
+[node name="Camera2D" type="Camera2D" parent="2dtako"]
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
+[node name="Polygon2D" type="Polygon2D" parent="2dtako"]
+color = Color(0.49019608, 0.4392157, 0.5372549, 1)
+polygon = PackedVector2Array(100, 0, 50, 86.6, -50, 86.6, -100, 0, -50, -86.6, 50, -86.6)
+uv = PackedVector2Array(100, 0, 50, 86.6, -50, 86.6, -100, 0, -50, -86.6, 50, -86.6)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(974, 1030)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_cgclm")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_left = -500.0
+offset_top = -50.0
+offset_right = 500.0
+offset_bottom = 50.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_5t6fn")
+volume_db = -15.0
+autoplay = true
